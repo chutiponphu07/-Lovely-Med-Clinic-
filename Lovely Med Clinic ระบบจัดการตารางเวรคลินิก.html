@@ -1,0 +1,6562 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ตารางเวรคลินิก Lovely Med Clinic</title>
+
+<!-- ใช้สำหรับ Export ตารางเป็น PNG -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+/* =========================================================
+   LOVELY MED CLINIC
+   Main CSS
+========================================================= */
+
+:root{
+    --green:#19b878;
+    --green-dark:#0d8f5a;
+    --green-light:#e9fff5;
+    --mint:#f3fffa;
+    --blue:#54a8ff;
+    --red:#ef5350;
+    --orange:#f59e0b;
+    --text:#20352c;
+    --muted:#718078;
+    --white:#ffffff;
+    --border:#dceee6;
+    --shadow:0 10px 30px rgba(18,120,83,.10);
+    --shadow-hover:0 15px 38px rgba(18,185,120,.25);
+    --radius:22px;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Tahoma,
+        sans-serif;
+    background:
+        linear-gradient(180deg,#f7fffb 0%,#ffffff 45%,#f7fffb 100%);
+    color:var(--text);
+    min-height:100vh;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.top-header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid var(--border);
+    padding:14px 20px;
+}
+
+.header-inner{
+    max-width:1400px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+}
+
+.brand-icon{
+    width:48px;
+    height:48px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#dffff0,#bdf8dd);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+    box-shadow:0 5px 18px rgba(25,184,120,.15);
+}
+
+.brand-text h1{
+    margin:0;
+    font-size:18px;
+    color:var(--green-dark);
+}
+
+.brand-text span{
+    font-size:12px;
+    color:var(--muted);
+}
+
+.profile-btn{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    border:2px solid #c9f2df;
+    background:white;
+    cursor:pointer;
+    font-size:21px;
+    transition:.2s;
+}
+
+.profile-btn:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 25px rgba(25,184,120,.3);
+    border-color:var(--green);
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app{
+    max-width:1400px;
+    margin:auto;
+    padding:25px 20px 60px;
+}
+
+.view{
+    display:none;
+    animation:fadeIn .25s ease;
+}
+
+.view.active{
+    display:block;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================================================
+   BACK HOME
+========================================================= */
+
+.page-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:22px;
+}
+
+.back-home-btn{
+    border:none;
+    background:white;
+    color:var(--green-dark);
+    border:1px solid #ccefe0;
+    padding:11px 18px;
+    border-radius:14px;
+    cursor:pointer;
+    font-weight:700;
+    transition:.2s;
+    box-shadow:0 5px 15px rgba(18,120,83,.07);
+}
+
+.back-home-btn:hover{
+    transform:scale(1.04);
+    box-shadow:0 0 22px rgba(25,184,120,.22);
+    background:var(--green-light);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    background:
+        radial-gradient(circle at 85% 20%,rgba(78,220,159,.25),transparent 28%),
+        linear-gradient(135deg,#effff8,#ffffff);
+    border:1px solid var(--border);
+    border-radius:30px;
+    padding:40px;
+    box-shadow:var(--shadow);
+    margin-bottom:25px;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::after{
+    content:"✚";
+    position:absolute;
+    right:45px;
+    bottom:-30px;
+    font-size:150px;
+    color:rgba(25,184,120,.055);
+}
+
+.hero h2{
+    margin:0 0 8px;
+    font-size:34px;
+    color:var(--green-dark);
+}
+
+.hero p{
+    margin:0;
+    color:var(--muted);
+    line-height:1.7;
+}
+
+.status-bar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:18px;
+    font-size:13px;
+    color:var(--green-dark);
+}
+
+.status-dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:#35d391;
+    box-shadow:0 0 10px #35d391;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.dashboard-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:22px;
+    box-shadow:var(--shadow);
+    transition:.22s;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow-hover);
+}
+
+.card-icon{
+    font-size:28px;
+    margin-bottom:12px;
+}
+
+.dashboard-card h3{
+    margin:0 0 6px;
+    font-size:16px;
+}
+
+.dashboard-card p{
+    margin:0;
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn{
+    border:none;
+    border-radius:14px;
+    padding:11px 17px;
+    cursor:pointer;
+    font-weight:700;
+    transition:.2s;
+    font-size:14px;
+}
+
+.btn:hover{
+    transform:scale(1.04);
+}
+
+.btn-primary{
+    background:linear-gradient(135deg,#21c985,#12ad6f);
+    color:white;
+    box-shadow:0 7px 20px rgba(25,184,120,.2);
+}
+
+.btn-primary:hover{
+    box-shadow:0 0 25px rgba(25,184,120,.4);
+}
+
+.btn-secondary{
+    background:#effbf6;
+    color:var(--green-dark);
+    border:1px solid #ccefe0;
+}
+
+.btn-danger{
+    background:#fff0f0;
+    color:#d73535;
+    border:1px solid #ffd0d0;
+}
+
+.btn-warning{
+    background:#fff8e8;
+    color:#a86b00;
+    border:1px solid #ffe0a1;
+}
+
+.btn-blue{
+    background:#edf7ff;
+    color:#2179bd;
+    border:1px solid #cbe7ff;
+}
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.section{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:24px;
+    box-shadow:var(--shadow);
+    margin-bottom:22px;
+}
+
+.section-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+}
+
+.section-header h2{
+    margin:0;
+    color:var(--green-dark);
+    font-size:21px;
+}
+
+.section-header p{
+    margin:4px 0 0;
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* =========================================================
+   FORMS
+========================================================= */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:17px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+.form-group label{
+    font-size:13px;
+    font-weight:700;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    border:1px solid #d8ebe3;
+    background:#fbfffd;
+    border-radius:13px;
+    padding:12px 13px;
+    font:inherit;
+    outline:none;
+    color:var(--text);
+    transition:.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:var(--green);
+    box-shadow:0 0 0 4px rgba(25,184,120,.09);
+}
+
+/* =========================================================
+   MEMBER CARDS
+========================================================= */
+
+.members-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.member-card{
+    background:linear-gradient(180deg,#ffffff,#f8fffc);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:20px;
+    transition:.2s;
+}
+
+.member-card:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--shadow-hover);
+}
+
+.member-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.member-avatar{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:#dff9ed;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    color:var(--green-dark);
+}
+
+.member-name{
+    font-weight:800;
+}
+
+.member-sub{
+    font-size:12px;
+    color:var(--muted);
+}
+
+.member-info{
+    margin-top:16px;
+    padding-top:14px;
+    border-top:1px solid #e7f3ee;
+}
+
+.member-info-row{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.unavailable-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:8px;
+}
+
+.date-pill{
+    background:#fff1f1;
+    color:#c84b4b;
+    border:1px solid #ffd6d6;
+    padding:4px 8px;
+    border-radius:999px;
+    font-size:11px;
+}
+
+.member-actions{
+    display:flex;
+    gap:8px;
+    margin-top:15px;
+    flex-wrap:wrap;
+}
+
+/* =========================================================
+   CALENDAR
+========================================================= */
+
+.calendar-toolbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:15px;
+    flex-wrap:wrap;
+}
+
+.calendar-title{
+    font-size:20px;
+    font-weight:800;
+    color:var(--green-dark);
+}
+
+.calendar-grid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:7px;
+}
+
+.weekday{
+    padding:9px 4px;
+    text-align:center;
+    font-size:12px;
+    font-weight:800;
+    color:var(--muted);
+}
+
+.day-cell{
+    min-height:105px;
+    background:#fbfffd;
+    border:1px solid #e2f1eb;
+    border-radius:14px;
+    padding:8px;
+    transition:.2s;
+}
+
+.day-cell:hover{
+    border-color:#a8e7cc;
+}
+
+.day-number{
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:7px;
+}
+
+.day-empty{
+    background:transparent;
+    border:none;
+}
+
+.duty-chip{
+    background:#e5fbf0;
+    color:#08764a;
+    border:1px solid #bfead5;
+    padding:5px 7px;
+    border-radius:9px;
+    margin-bottom:5px;
+    font-size:11px;
+    cursor:grab;
+    user-select:none;
+}
+
+.duty-chip:active{
+    cursor:grabbing;
+}
+
+.duty-chip.admin-draggable:hover{
+    box-shadow:0 0 12px rgba(25,184,120,.25);
+}
+
+.day-drop-active{
+    background:#effff7;
+    border:2px dashed var(--green);
+}
+
+.unavailable-day{
+    background:#fff6f6;
+}
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+.history-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.history-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:15px;
+    box-shadow:var(--shadow);
+}
+
+.history-image{
+    width:100%;
+    aspect-ratio:1/1.414;
+    object-fit:contain;
+    background:#f7faf8;
+    border-radius:13px;
+    border:1px solid #e3eee9;
+    cursor:pointer;
+}
+
+.history-meta{
+    margin-top:12px;
+}
+
+.history-meta strong{
+    display:block;
+    color:var(--green-dark);
+}
+
+.history-meta small{
+    color:var(--muted);
+}
+
+.history-actions{
+    margin-top:10px;
+    display:flex;
+    gap:8px;
+}
+
+/* =========================================================
+   ADMIN PANEL
+========================================================= */
+
+.admin-panel{
+    border:1px solid #bdebd5;
+    background:linear-gradient(135deg,#f0fff8,#ffffff);
+}
+
+.admin-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:#dcfaeb;
+    color:#08764a;
+    border:1px solid #bcebd3;
+    border-radius:999px;
+    padding:6px 10px;
+    font-size:12px;
+    font-weight:800;
+}
+
+/* =========================================================
+   ALERT
+========================================================= */
+
+.alert{
+    padding:14px 16px;
+    border-radius:15px;
+    margin-bottom:15px;
+    font-size:13px;
+}
+
+.alert-warning{
+    background:#fff8e7;
+    color:#8a6100;
+    border:1px solid #f8dda0;
+}
+
+.alert-danger{
+    background:#fff1f1;
+    color:#a82d2d;
+    border:1px solid #ffcaca;
+}
+
+.alert-success{
+    background:#edfff6;
+    color:#08764a;
+    border:1px solid #bcebd4;
+}
+
+.alert-info{
+    background:#eef8ff;
+    color:#22678e;
+    border:1px solid #c7e7fa;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(20,50,40,.42);
+    backdrop-filter:blur(5px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:500;
+    padding:20px;
+}
+
+.modal-overlay.show{
+    display:flex;
+}
+
+.modal{
+    width:min(650px,100%);
+    max-height:90vh;
+    overflow:auto;
+    background:white;
+    border-radius:25px;
+    box-shadow:0 30px 80px rgba(0,0,0,.2);
+    padding:25px;
+    animation:modalIn .2s ease;
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:scale(.96) translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
+
+.modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.modal-header h3{
+    margin:0;
+    color:var(--green-dark);
+}
+
+.close-btn{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:1px solid #dcebe5;
+    background:white;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.close-btn:hover{
+    background:#effbf6;
+    transform:scale(1.05);
+}
+
+/* =========================================================
+   UNAVAILABLE DATE PICKER
+========================================================= */
+
+.date-picker-toolbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:12px;
+}
+
+.date-picker-month{
+    font-weight:800;
+    color:var(--green-dark);
+}
+
+.date-picker-grid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:6px;
+}
+
+.date-select-cell{
+    aspect-ratio:1;
+    border:1px solid #dceee6;
+    border-radius:10px;
+    background:#fbfffd;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    transition:.15s;
+}
+
+.date-select-cell:hover{
+    transform:scale(1.04);
+    border-color:var(--green);
+}
+
+.date-select-cell.selected{
+    background:#ffdddd;
+    color:#b52f2f;
+    border-color:#f09b9b;
+    font-weight:800;
+}
+
+.date-select-cell.today{
+    box-shadow:inset 0 0 0 2px #8bdcba;
+}
+
+.date-select-empty{
+    border:none;
+    background:transparent;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast-container{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    z-index:1000;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    max-width:360px;
+}
+
+.toast{
+    background:white;
+    border:1px solid var(--border);
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+    border-radius:15px;
+    padding:13px 16px;
+    font-size:13px;
+    animation:toastIn .25s ease;
+}
+
+@keyframes toastIn{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================================================
+   ADMIN NOTICE
+========================================================= */
+
+.admin-login-notice{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:10px;
+    line-height:1.6;
+}
+
+/* =========================================================
+   STAT
+========================================================= */
+
+.stat-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+.stat-box{
+    background:#f8fffc;
+    border:1px solid #dcefe7;
+    border-radius:17px;
+    padding:16px;
+}
+
+.stat-box .num{
+    font-size:26px;
+    font-weight:900;
+    color:var(--green-dark);
+}
+
+.stat-box .label{
+    color:var(--muted);
+    font-size:12px;
+}
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty{
+    text-align:center;
+    padding:45px 20px;
+    color:var(--muted);
+}
+
+.empty-icon{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+/* =========================================================
+   SCHEDULE CONTROLS
+========================================================= */
+
+.schedule-controls{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    align-items:center;
+}
+
+.schedule-controls select{
+    width:auto;
+    min-width:130px;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:1000px){
+
+    .dashboard-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .members-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .history-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .stat-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:700px){
+
+    .top-header{
+        padding:10px 12px;
+    }
+
+    .app{
+        padding:15px 12px 45px;
+    }
+
+    .brand-icon{
+        width:42px;
+        height:42px;
+        font-size:22px;
+    }
+
+    .brand-text h1{
+        font-size:15px;
+    }
+
+    .hero{
+        padding:25px 20px;
+        border-radius:23px;
+    }
+
+    .hero h2{
+        font-size:26px;
+    }
+
+    .dashboard-grid{
+        grid-template-columns:1fr 1fr;
+        gap:11px;
+    }
+
+    .dashboard-card{
+        padding:16px;
+        border-radius:17px;
+    }
+
+    .members-grid,
+    .history-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .section{
+        padding:17px;
+        border-radius:20px;
+    }
+
+    .calendar-grid{
+        gap:3px;
+    }
+
+    .day-cell{
+        min-height:85px;
+        padding:5px;
+        border-radius:9px;
+    }
+
+    .day-number{
+        font-size:11px;
+    }
+
+    .duty-chip{
+        font-size:9px;
+        padding:4px;
+    }
+
+    .weekday{
+        font-size:10px;
+    }
+
+    .stat-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .page-top{
+        align-items:flex-start;
+    }
+
+    .back-home-btn{
+        font-size:12px;
+        padding:9px 12px;
+    }
+
+    .date-picker-grid{
+        gap:4px;
+    }
+
+    .date-select-cell{
+        border-radius:8px;
+        font-size:11px;
+    }
+
+    .modal{
+        padding:18px;
+        border-radius:20px;
+    }
+}
+
+@media(max-width:430px){
+
+    .dashboard-grid{
+        grid-template-columns:1fr;
+    }
+
+    .brand-text span{
+        display:none;
+    }
+
+    .calendar-title{
+        font-size:17px;
+    }
+
+    .day-cell{
+        min-height:75px;
+    }
+}
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print{
+
+    body{
+        background:white;
+    }
+
+    .top-header,
+    .page-top,
+    .schedule-controls,
+    .no-print,
+    .back-home-btn{
+        display:none !important;
+    }
+
+    .app{
+        padding:0;
+        max-width:none;
+    }
+
+    .section{
+        box-shadow:none;
+        border:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="top-header">
+    <div class="header-inner">
+
+        <div class="brand" onclick="goHome()">
+            <div class="brand-icon">🩺</div>
+
+            <div class="brand-text">
+                <h1>Lovely Med Clinic</h1>
+                <span>ระบบจัดการตารางเวรคลินิก</span>
+            </div>
+        </div>
+
+        <button
+            class="profile-btn"
+            onclick="openAdminLogin()"
+            title="เข้าสู่ระบบ Admin">
+            👤
+        </button>
+
+    </div>
+</header>
+
+
+<!-- =========================================================
+     APP
+========================================================= -->
+
+<main class="app">
+
+<!-- =========================================================
+     HOME
+========================================================= -->
+
+<section id="view-home" class="view active">
+
+    <div class="hero">
+
+        <h2>Lovely Med Clinic 🩺</h2>
+
+        <p>
+            ระบบจัดการสมาชิก ตารางเวรคลินิก
+            และประวัติตารางเวรแบบครบวงจร
+        </p>
+
+        <div class="status-bar">
+            <span class="status-dot"></span>
+            <span id="saveStatus">ข้อมูลพร้อมใช้งาน</span>
+        </div>
+
+    </div>
+
+
+    <!-- ADMIN ALERT -->
+    <div
+        id="adminAlertHome"
+        class="alert alert-warning"
+        style="display:none">
+    </div>
+
+
+    <!-- DASHBOARD -->
+    <div class="dashboard-grid">
+
+        <div class="dashboard-card"
+             onclick="showView('members')"
+             style="cursor:pointer">
+
+            <div class="card-icon">👩‍⚕️</div>
+
+            <h3>สมาชิกที่มาขึ้นเวร</h3>
+
+            <p>
+                เพิ่มและจัดการข้อมูลสมาชิก
+            </p>
+
+        </div>
+
+
+        <div class="dashboard-card"
+             onclick="showView('schedule')"
+             style="cursor:pointer">
+
+            <div class="card-icon">📅</div>
+
+            <h3>ตารางเวรคลินิก</h3>
+
+            <p>
+                ดูตารางเวรรายเดือน
+            </p>
+
+        </div>
+
+
+        <div class="dashboard-card"
+             onclick="showView('history')"
+             style="cursor:pointer">
+
+            <div class="card-icon">🖼️</div>
+
+            <h3>ประวัติตารางเวร</h3>
+
+            <p>
+                ดูรูปตารางเวรที่ผ่านมา
+            </p>
+
+        </div>
+
+
+        <div
+            id="adminHistoryMemberCard"
+            class="dashboard-card"
+            onclick="openAdminMemberHistory()"
+            style="display:none;cursor:pointer">
+
+            <div class="card-icon">📋</div>
+
+            <h3>ประวัติข้อมูลสมาชิก</h3>
+
+            <p>
+                ดูประวัติข้อมูลที่สมาชิกเคยกรอก
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUICK INFO -->
+    <div class="section">
+
+        <div class="section-header">
+
+            <div>
+                <h2>ภาพรวมระบบ</h2>
+                <p>
+                    ข้อมูลด้านล่างอัปเดตจากข้อมูลที่บันทึกไว้ในเครื่องนี้
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="stat-grid">
+
+            <div class="stat-box">
+                <div class="num" id="homeMemberCount">0</div>
+                <div class="label">สมาชิกทั้งหมด</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="num" id="homeScheduleCount">0</div>
+                <div class="label">เดือนที่จัดเวรแล้ว</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="num" id="homeHistoryCount">0</div>
+                <div class="label">รูปประวัติตารางเวร</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="num" id="homeMemberHistoryCount">0</div>
+                <div class="label">ประวัติข้อมูลสมาชิก</div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-header">
+            <div>
+                <h2>สิทธิ์การใช้งาน</h2>
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <strong>สมาชิกทั่วไป</strong>
+            สามารถดูข้อมูลสมาชิกของตนเอง แก้ไข/ลบข้อมูลของตนเอง
+            ดูตารางเวร และดูประวัติตารางเวรได้
+            แต่ไม่สามารถจัดเวรหรือจัดการข้อมูลของสมาชิกคนอื่นได้
+        </div>
+
+        <div class="alert alert-success">
+            <strong>Admin</strong>
+            สามารถจัดตารางเวร ลากย้ายเวร
+            อัปโหลด/ลบรูปประวัติตารางเวร
+            ลบข้อมูลสมาชิกทั้งหมด
+            และดูประวัติข้อมูลสมาชิกได้
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MEMBERS
+========================================================= -->
+
+<section id="view-members" class="view">
+
+    <div class="page-top">
+
+        <div>
+            <h2>👩‍⚕️ สมาชิกที่มาขึ้นเวร</h2>
+            <p style="color:var(--muted);margin:5px 0 0">
+                จัดการข้อมูลสมาชิกและวันที่ติดธุระ
+            </p>
+        </div>
+
+        <button
+            class="back-home-btn"
+            onclick="goHome()">
+            ← กลับหน้าหลัก
+        </button>
+
+    </div>
+
+
+    <div
+        id="memberNotice"
+        class="alert alert-info">
+        สมาชิกทั่วไปสามารถจัดการข้อมูลของตนเองได้เท่านั้น
+    </div>
+
+
+    <!-- ADD MEMBER -->
+    <div class="section">
+
+        <div class="section-header">
+
+            <div>
+                <h2>เพิ่มสมาชิก</h2>
+
+                <p>
+                    สามารถเลือกวันที่ติดธุระได้หลายเดือน
+                    และเลือกได้หลายวัน
+                </p>
+            </div>
+
+            <button
+                class="btn btn-primary"
+                onclick="openAddMemberModal()">
+                ＋ เพิ่มสมาชิก
+            </button>
+
+        </div>
+
+        <div class="alert alert-warning">
+            จำนวนวันที่ต้องการขึ้นเวรเป็น
+            <strong>เป้าหมาย/แนวทาง</strong>
+            ไม่ใช่ข้อบังคับ ระบบจะยังคงเคารพกฎ
+            ไม่เกิน 2 คนต่อวัน และไม่เกิน 3 วันติดกัน
+        </div>
+
+    </div>
+
+
+    <!-- MEMBER LIST -->
+    <div class="section">
+
+        <div class="section-header">
+
+            <div>
+                <h2>รายชื่อสมาชิก</h2>
+            </div>
+
+            <span
+                class="admin-badge"
+                id="memberAdminBadge"
+                style="display:none">
+                🔐 Admin
+            </span>
+
+        </div>
+
+        <div id="membersList" class="members-grid"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SCHEDULE
+========================================================= -->
+
+<section id="view-schedule" class="view">
+
+    <div class="page-top">
+
+        <div>
+            <h2>📅 ตารางเวรคลินิก</h2>
+            <p style="color:var(--muted);margin:5px 0 0">
+                ดูตารางเวรประจำเดือน
+            </p>
+        </div>
+
+        <button
+            class="back-home-btn"
+            onclick="goHome()">
+            ← กลับหน้าหลัก
+        </button>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <div>
+                <h2 id="scheduleMonthTitle">
+                    ตารางเวร
+                </h2>
+
+                <p id="scheduleRoleText">
+                    สมาชิกทั่วไปสามารถดูตารางได้อย่างเดียว
+                </p>
+            </div>
+
+
+            <div class="schedule-controls">
+
+                <button
+                    class="btn btn-secondary"
+                    onclick="changeScheduleMonth(-1)">
+                    ‹ เดือนก่อน
+                </button>
+
+                <select
+                    id="scheduleMonthSelect"
+                    onchange="selectScheduleMonth()">
+                </select>
+
+                <button
+                    class="btn btn-secondary"
+                    onclick="changeScheduleMonth(1)">
+                    เดือนถัดไป ›
+                </button>
+
+                <button
+                    id="generateScheduleBtn"
+                    class="btn btn-primary"
+                    style="display:none"
+                    onclick="generateCurrentSchedule()">
+                    🎲 สุ่มจัดเวร
+                </button>
+
+                <button
+                    id="clearScheduleBtn"
+                    class="btn btn-danger"
+                    style="display:none"
+                    onclick="clearCurrentSchedule()">
+                    ล้างตารางเดือนนี้
+                </button>
+
+                <button
+                    id="exportScheduleBtn"
+                    class="btn btn-blue"
+                    style="display:none"
+                    onclick="exportCurrentSchedule()">
+                    🖼️ Export A4 PNG
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="scheduleAdminInfo"
+            class="alert alert-success"
+            style="display:none">
+
+            Admin สามารถลากชื่อสมาชิกจากวันหนึ่งไปยังอีกวันได้
+            โดยระบบจะตรวจสอบกฎอัตโนมัติ
+            <br>
+            <small>
+                • สูงสุด 2 คนต่อวัน
+                • ห้ามวันที่สมาชิกติดธุระ
+                • ห้ามคนเดิมเกิน 3 วันติด
+            </small>
+
+        </div>
+
+
+        <div id="scheduleExportArea">
+
+            <div
+                id="scheduleCalendar"
+                class="calendar-grid">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     HISTORY
+========================================================= -->
+
+<section id="view-history" class="view">
+
+    <div class="page-top">
+
+        <div>
+            <h2>🖼️ ประวัติตารางเวร</h2>
+            <p style="color:var(--muted);margin:5px 0 0">
+                รูปตารางเวรที่จัดไว้ในแต่ละเดือน
+            </p>
+        </div>
+
+        <button
+            class="back-home-btn"
+            onclick="goHome()">
+            ← กลับหน้าหลัก
+        </button>
+
+    </div>
+
+
+    <!-- ADMIN UPLOAD -->
+    <div
+        id="historyAdminPanel"
+        class="section admin-panel"
+        style="display:none">
+
+        <div class="section-header">
+
+            <div>
+                <h2>🔐 จัดการประวัติตารางเวร</h2>
+
+                <p>
+                    ส่วนนี้เฉพาะ Admin เท่านั้น
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>เดือนของรูปภาพ</label>
+
+                <input
+                    type="month"
+                    id="historyMonth">
+            </div>
+
+
+            <div class="form-group">
+                <label>เลือกรูปตารางเวร</label>
+
+                <input
+                    type="file"
+                    id="historyImageInput"
+                    accept="image/*">
+            </div>
+
+        </div>
+
+
+        <div style="margin-top:15px">
+
+            <button
+                class="btn btn-primary"
+                onclick="uploadHistoryImage()">
+                ⬆️ อัปโหลดรูปเข้าประวัติ
+            </button>
+
+        </div>
+
+
+        <div class="alert alert-warning" style="margin-top:15px">
+            รูปจะถูกบันทึกไว้ในเครื่องนี้จนกว่า Admin จะลบ
+            แนะนำให้ใช้รูปที่มีขนาดไม่ใหญ่มาก
+            เพราะ browser มีข้อจำกัดของ localStorage
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div id="historyGrid" class="history-grid"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ADMIN MEMBER HISTORY
+========================================================= -->
+
+<section id="view-admin-member-history" class="view">
+
+    <div class="page-top">
+
+        <div>
+            <h2>📋 ประวัติข้อมูลสมาชิก</h2>
+
+            <p style="color:var(--muted);margin:5px 0 0">
+                เฉพาะ Admin เท่านั้น
+            </p>
+        </div>
+
+        <button
+            class="back-home-btn"
+            onclick="goHome()">
+            ← กลับหน้าหลัก
+        </button>
+
+    </div>
+
+
+    <div
+        id="memberHistoryAlert"
+        class="alert alert-warning"
+        style="display:none">
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <div>
+                <h2>ประวัติการกรอกข้อมูลของสมาชิก</h2>
+
+                <p>
+                    การลบประวัติจากหน้านี้
+                    จะลบเฉพาะประวัติเท่านั้น
+                    ไม่ลบข้อมูลสมาชิกปัจจุบัน
+                </p>
+            </div>
+
+        </div>
+
+
+        <div id="memberHistoryList"></div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+     ADD / EDIT MEMBER MODAL
+========================================================= -->
+
+<div
+    id="memberModal"
+    class="modal-overlay">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h3 id="memberModalTitle">
+                เพิ่มสมาชิก
+            </h3>
+
+            <button
+                class="close-btn"
+                onclick="closeModal('memberModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <input
+            type="hidden"
+            id="editingMemberId">
+
+
+        <div class="form-grid">
+
+            <div class="form-group full">
+
+                <label>
+                    ชื่อสมาชิก
+                </label>
+
+                <input
+                    id="memberNameInput"
+                    type="text"
+                    placeholder="เช่น แพทย์หญิง A">
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    จำนวนวันที่ต้องการขึ้นเวร
+                </label>
+
+                <input
+                    id="memberTargetInput"
+                    type="number"
+                    min="0"
+                    max="31"
+                    value="1">
+
+                <small style="color:var(--muted)">
+                    สูงสุด 31 วัน
+                </small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    เดือนที่ต้องการเลือกวันติดธุระ
+                </label>
+
+                <input
+                    id="unavailableMonthInput"
+                    type="month"
+                    onchange="renderUnavailablePicker()">
+
+            </div>
+
+        </div>
+
+
+        <div
+            style="margin-top:18px"
+            class="section"
+            id="unavailablePickerSection">
+
+            <div class="date-picker-toolbar">
+
+                <button
+                    class="btn btn-secondary"
+                    onclick="changeUnavailableMonth(-1)">
+                    ‹
+                </button>
+
+                <div
+                    id="unavailablePickerTitle"
+                    class="date-picker-month">
+                    เลือกเดือน
+                </div>
+
+                <button
+                    class="btn btn-secondary"
+                    onclick="changeUnavailableMonth(1)">
+                    ›
+                </button>
+
+            </div>
+
+
+            <div
+                class="alert alert-info">
+                คลิกวันที่ต้องการระบุว่า
+                <strong>ติดธุระ</strong>
+                สามารถเลือกได้หลายวัน
+                และเปลี่ยนเดือนได้
+            </div>
+
+
+            <div
+                class="date-picker-grid"
+                id="unavailablePickerGrid">
+            </div>
+
+
+            <div
+                style="margin-top:15px"
+                id="selectedUnavailableSummary">
+            </div>
+
+        </div>
+
+
+        <div
+            style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px">
+
+            <button
+                class="btn btn-secondary"
+                onclick="closeModal('memberModal')">
+                ยกเลิก
+            </button>
+
+            <button
+                class="btn btn-primary"
+                onclick="saveMember()">
+                💾 บันทึกข้อมูล
+            </button>
+
+        </div>
+
+
+        <div class="admin-login-notice">
+            หมายเหตุ:
+            ข้อมูลสมาชิกจะถูกเก็บไว้ใน browser เครื่องนี้
+            และจะยังอยู่จนกว่าจะมีการลบข้อมูล
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     ADMIN LOGIN MODAL
+========================================================= -->
+
+<div
+    id="adminLoginModal"
+    class="modal-overlay">
+
+    <div class="modal" style="max-width:430px">
+
+        <div class="modal-header">
+
+            <h3>🔐 Admin Login</h3>
+
+            <button
+                class="close-btn"
+                onclick="closeModal('adminLoginModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Username
+            </label>
+
+            <input
+                id="adminUsername"
+                type="text"
+                autocomplete="username"
+                placeholder="Username">
+
+        </div>
+
+
+        <div
+            class="form-group"
+            style="margin-top:14px">
+
+            <label>
+                Password
+            </label>
+
+            <input
+                id="adminPassword"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Password">
+
+        </div>
+
+
+        <div
+            id="adminLoginError"
+            class="alert alert-danger"
+            style="display:none;margin-top:15px">
+        </div>
+
+
+        <button
+            class="btn btn-primary"
+            style="width:100%;margin-top:18px"
+            onclick="loginAdmin()">
+            เข้าสู่ระบบ Admin
+        </button>
+
+
+        <div class="admin-login-notice">
+
+            ระบบตัวอย่างนี้ใช้การตรวจสอบ Admin
+            ภายใน JavaScript
+
+            <br><br>
+
+            <strong>
+                สำหรับการใช้งานจริงในระบบคลินิก
+                ควรใช้ Backend Authentication
+                และฐานข้อมูลจริง
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MOVE DUTY MODAL - MOBILE FALLBACK
+========================================================= -->
+
+<div
+    id="moveDutyModal"
+    class="modal-overlay">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h3>↔️ ย้ายเวร</h3>
+
+            <button
+                class="close-btn"
+                onclick="closeModal('moveDutyModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                สมาชิก
+            </label>
+
+            <select id="moveMemberSelect"></select>
+
+        </div>
+
+
+        <div
+            class="form-group"
+            style="margin-top:14px">
+
+            <label>
+                วันที่ปลายทาง
+            </label>
+
+            <input
+                type="date"
+                id="moveDateInput">
+
+        </div>
+
+
+        <div
+            class="alert alert-info"
+            style="margin-top:15px">
+
+            ระบบจะตรวจสอบให้อัตโนมัติว่า
+            วันที่ปลายทางไม่ติดธุระ
+            ไม่เกิน 2 คน/วัน
+            และไม่ทำให้ขึ้นเวรเกิน 3 วันติดกัน
+
+        </div>
+
+
+        <button
+            class="btn btn-primary"
+            style="width:100%"
+            onclick="confirmMoveDuty()">
+            ยืนยันการย้าย
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     IMAGE PREVIEW
+========================================================= -->
+
+<div
+    id="imagePreviewModal"
+    class="modal-overlay"
+    onclick="closeModal('imagePreviewModal')">
+
+    <div
+        class="modal"
+        style="max-width:900px"
+        onclick="event.stopPropagation()">
+
+        <div class="modal-header">
+
+            <h3 id="previewTitle">
+                รูปภาพ
+            </h3>
+
+            <button
+                class="close-btn"
+                onclick="closeModal('imagePreviewModal')">
+                ×
+            </button>
+
+        </div>
+
+        <img
+            id="previewImage"
+            src=""
+            alt="preview"
+            style="
+                width:100%;
+                max-height:75vh;
+                object-fit:contain;
+                border-radius:15px;
+            ">
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+    id="toastContainer"
+    class="toast-container">
+</div>
+
+
+<script>
+
+/* =========================================================
+   CONFIG
+========================================================= */
+
+const ADMIN_USER = "counter";
+const ADMIN_PASS = "0626963868";
+
+const STORAGE_KEY = "lovelyMedClinicDataV2";
+
+const CURRENT_MEMBER_KEY =
+    "lovelyMedClinicCurrentMember";
+
+const ADMIN_SESSION_KEY =
+    "lovelyMedClinicAdminSession";
+
+
+/*
+    DEMO ONLY
+
+    Username/password อยู่ใน JavaScript
+    ดังนั้นคนที่เปิด Source สามารถมองเห็นได้
+
+    หากนำไปใช้งานจริงควรใช้:
+    Backend Authentication
+    Firebase Authentication
+    Supabase Auth
+    หรือระบบ login ฝั่ง server
+*/
+
+
+/* =========================================================
+   MONTH NAMES
+========================================================= */
+
+const THAI_MONTHS = [
+    "มกราคม",
+    "กุมภาพันธ์",
+    "มีนาคม",
+    "เมษายน",
+    "พฤษภาคม",
+    "มิถุนายน",
+    "กรกฎาคม",
+    "สิงหาคม",
+    "กันยายน",
+    "ตุลาคม",
+    "พฤศจิกายน",
+    "ธันวาคม"
+];
+
+const WEEKDAYS = [
+    "อา",
+    "จ",
+    "อ",
+    "พ",
+    "พฤ",
+    "ศ",
+    "ส"
+];
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let state = {
+    members: [],
+    schedules: {},
+    history: [],
+
+    /*
+      ประวัติข้อมูลสมาชิก
+      ไม่มีผลกับ members ปัจจุบัน
+    */
+    memberHistory: [],
+
+    /*
+      จำนวนวันที่เหลือจากเดือนก่อน
+      ใช้เป็นแนวทางในการจัดเดือนถัดไป
+    */
+    carryOver: {}
+};
+
+
+let isAdmin = false;
+
+let currentScheduleDate = new Date();
+
+let unavailablePickerDate = new Date();
+
+let tempUnavailableDates = [];
+
+let movingDuty = null;
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    loadState();
+
+    isAdmin =
+        sessionStorage.getItem(ADMIN_SESSION_KEY) === "true";
+
+    initializeDefaultMonths();
+
+    renderAll();
+
+    /*
+      ถ้า Admin login อยู่
+      ให้ตรวจสอบประวัติที่มีวันติดธุระใหม่
+    */
+    if(isAdmin){
+        checkAdminMemberHistoryAlert();
+    }
+
+});
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+function createDefaultState(){
+
+    return {
+        members: [],
+        schedules: {},
+        history: [],
+        memberHistory: [],
+        carryOver: {}
+    };
+
+}
+
+
+function loadState(){
+
+    try{
+
+        const raw =
+            localStorage.getItem(STORAGE_KEY);
+
+        if(!raw){
+
+            state = createDefaultState();
+
+            saveState(false);
+
+            return;
+        }
+
+        const parsed =
+            JSON.parse(raw);
+
+        state = {
+            ...createDefaultState(),
+            ...parsed
+        };
+
+    }catch(error){
+
+        console.error(error);
+
+        state =
+            createDefaultState();
+
+        showToast(
+            "ไม่สามารถอ่านข้อมูลเดิมได้ ระบบเริ่มต้นข้อมูลใหม่",
+            "danger"
+        );
+
+    }
+
+}
+
+
+function saveState(showMessage = true){
+
+    try{
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(state)
+        );
+
+        document.getElementById("saveStatus").textContent =
+            "บันทึกข้อมูลแล้ว " +
+            new Date().toLocaleTimeString("th-TH");
+
+        if(showMessage){
+
+            showToast(
+                "บันทึกข้อมูลเรียบร้อยแล้ว",
+                "success"
+            );
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        showToast(
+            "บันทึกข้อมูลไม่สำเร็จ อาจเกิดจากพื้นที่จัดเก็บเต็ม",
+            "danger"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+
+function uuid(){
+
+    return (
+        Date.now().toString(36) +
+        Math.random().toString(36).slice(2)
+    );
+
+}
+
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function pad(n){
+
+    return String(n).padStart(2,"0");
+
+}
+
+
+function monthKey(date){
+
+    return (
+        date.getFullYear() +
+        "-" +
+        pad(date.getMonth()+1)
+    );
+
+}
+
+
+function dateKey(date){
+
+    return (
+        date.getFullYear() +
+        "-" +
+        pad(date.getMonth()+1) +
+        "-" +
+        pad(date.getDate())
+    );
+
+}
+
+
+function parseDateKey(key){
+
+    const [y,m,d] =
+        key.split("-").map(Number);
+
+    return new Date(y,m-1,d);
+
+}
+
+
+function daysInMonth(year,month){
+
+    return new Date(
+        year,
+        month + 1,
+        0
+    ).getDate();
+
+}
+
+
+function formatThaiMonth(key){
+
+    if(!key) return "";
+
+    const [y,m] =
+        key.split("-").map(Number);
+
+    return (
+        THAI_MONTHS[m-1] +
+        " " +
+        (y + 543)
+    );
+
+}
+
+
+function formatThaiDate(key){
+
+    const d =
+        parseDateKey(key);
+
+    return (
+        d.getDate() +
+        " " +
+        THAI_MONTHS[d.getMonth()] +
+        " " +
+        (d.getFullYear()+543)
+    );
+
+}
+
+
+function shuffle(array){
+
+    const arr = [...array];
+
+    for(
+        let i=arr.length-1;
+        i>0;
+        i--
+    ){
+
+        const j =
+            Math.floor(Math.random()*(i+1));
+
+        [arr[i],arr[j]] =
+            [arr[j],arr[i]];
+
+    }
+
+    return arr;
+
+}
+
+
+function getMemberById(id){
+
+    return state.members.find(
+        m => m.id === id
+    );
+
+}
+
+
+/* =========================================================
+   VIEW CONTROL
+========================================================= */
+
+function showView(viewName){
+
+    document
+        .querySelectorAll(".view")
+        .forEach(view => {
+
+            view.classList.remove("active");
+
+        });
+
+
+    const target =
+        document.getElementById(
+            "view-" + viewName
+        );
+
+    if(!target) return;
+
+    target.classList.add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+
+    if(viewName === "home"){
+
+        renderHome();
+
+    }
+
+    if(viewName === "members"){
+
+        renderMembers();
+
+    }
+
+    if(viewName === "schedule"){
+
+        renderSchedule();
+
+    }
+
+    if(viewName === "history"){
+
+        renderHistory();
+
+    }
+
+    if(viewName === "admin-member-history"){
+
+        if(!isAdmin){
+
+            goHome();
+
+            return;
+
+        }
+
+        renderAdminMemberHistory();
+
+    }
+
+}
+
+
+function goHome(){
+
+    showView("home");
+
+}
+
+
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
+
+function openAdminLogin(){
+
+    if(isAdmin){
+
+        showAdminLogoutMenu();
+
+        return;
+
+    }
+
+    document
+        .getElementById("adminLoginModal")
+        .classList.add("show");
+
+}
+
+
+function showAdminLogoutMenu(){
+
+    const ok =
+        confirm(
+            "คุณกำลังเข้าสู่ระบบ Admin อยู่\n\n" +
+            "กด OK เพื่อออกจากระบบ Admin"
+        );
+
+    if(ok){
+
+        logoutAdmin();
+
+    }
+
+}
+
+
+function loginAdmin(){
+
+    const username =
+        document.getElementById(
+            "adminUsername"
+        ).value.trim();
+
+    const password =
+        document.getElementById(
+            "adminPassword"
+        ).value;
+
+
+    const errorBox =
+        document.getElementById(
+            "adminLoginError"
+        );
+
+
+    if(
+        username === ADMIN_USER &&
+        password === ADMIN_PASS
+    ){
+
+        isAdmin = true;
+
+        sessionStorage.setItem(
+            ADMIN_SESSION_KEY,
+            "true"
+        );
+
+
+        errorBox.style.display =
+            "none";
+
+        document
+            .getElementById("adminUsername")
+            .value = "";
+
+        document
+            .getElementById("adminPassword")
+            .value = "";
+
+
+        closeModal("adminLoginModal");
+
+        renderAll();
+
+        showToast(
+            "เข้าสู่ระบบ Admin สำเร็จ",
+            "success"
+        );
+
+
+        /*
+          แจ้งเตือนทุกครั้งที่เข้าสู่ระบบ
+          หากมีประวัติวันติดธุระใหม่
+        */
+        setTimeout(
+            checkAdminMemberHistoryAlert,
+            300
+        );
+
+
+    }else{
+
+        errorBox.textContent =
+            "Username หรือ Password ไม่ถูกต้อง";
+
+        errorBox.style.display =
+            "block";
+
+    }
+
+}
+
+
+function logoutAdmin(){
+
+    isAdmin = false;
+
+    sessionStorage.removeItem(
+        ADMIN_SESSION_KEY
+    );
+
+    renderAll();
+
+    goHome();
+
+    showToast(
+        "ออกจากระบบ Admin แล้ว",
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function closeModal(id){
+
+    const modal =
+        document.getElementById(id);
+
+    if(modal){
+
+        modal.classList.remove("show");
+
+    }
+
+}
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+function renderHome(){
+
+    document.getElementById(
+        "homeMemberCount"
+    ).textContent =
+        state.members.length;
+
+
+    document.getElementById(
+        "homeScheduleCount"
+    ).textContent =
+        Object.keys(
+            state.schedules
+        ).length;
+
+
+    document.getElementById(
+        "homeHistoryCount"
+    ).textContent =
+        state.history.length;
+
+
+    document.getElementById(
+        "homeMemberHistoryCount"
+    ).textContent =
+        state.memberHistory.length;
+
+
+    const adminCard =
+        document.getElementById(
+            "adminHistoryMemberCard"
+        );
+
+    const alertBox =
+        document.getElementById(
+            "adminAlertHome"
+        );
+
+
+    if(isAdmin){
+
+        adminCard.style.display =
+            "block";
+
+        const newCount =
+            getNewMemberHistoryCount();
+
+        if(newCount > 0){
+
+            alertBox.style.display =
+                "block";
+
+            alertBox.innerHTML =
+                `🔔 <strong>มีประวัติข้อมูลสมาชิกใหม่ ${newCount} รายการ</strong>
+                 ที่เกี่ยวข้องกับวันติดธุระที่เพิ่มหลังจากเดือนที่จัดเวรล่าสุด
+                 กรุณาเข้าเมนู <strong>ประวัติข้อมูลสมาชิก</strong>`;
+
+        }else{
+
+            alertBox.style.display =
+                "none";
+
+        }
+
+    }else{
+
+        adminCard.style.display =
+            "none";
+
+        alertBox.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER ALL
+========================================================= */
+
+function renderAll(){
+
+    renderHome();
+
+    renderMembers();
+
+    renderSchedule();
+
+    renderHistory();
+
+    if(isAdmin){
+
+        renderAdminMemberHistory();
+
+    }
+
+    const badge =
+        document.getElementById(
+            "memberAdminBadge"
+        );
+
+    if(badge){
+
+        badge.style.display =
+            isAdmin ? "inline-flex" : "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   MEMBER MODAL
+========================================================= */
+
+function openAddMemberModal(){
+
+    document.getElementById(
+        "memberModalTitle"
+    ).textContent =
+        "เพิ่มสมาชิก";
+
+
+    document.getElementById(
+        "editingMemberId"
+    ).value = "";
+
+
+    document.getElementById(
+        "memberNameInput"
+    ).value = "";
+
+
+    document.getElementById(
+        "memberTargetInput"
+    ).value = "1";
+
+
+    tempUnavailableDates = [];
+
+
+    const now =
+        new Date();
+
+    unavailablePickerDate =
+        new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            1
+        );
+
+
+    document.getElementById(
+        "unavailableMonthInput"
+    ).value =
+        monthKey(unavailablePickerDate);
+
+
+    renderUnavailablePicker();
+
+
+    document
+        .getElementById("memberModal")
+        .classList.add("show");
+
+}
+
+
+function openEditMemberModal(memberId){
+
+    const member =
+        getMemberById(memberId);
+
+    if(!member) return;
+
+
+    /*
+      สมาชิกทั่วไปแก้ได้เฉพาะของตัวเอง
+    */
+
+    if(
+        !isAdmin &&
+        getCurrentMemberId() !== memberId
+    ){
+
+        showToast(
+            "คุณสามารถแก้ไขได้เฉพาะข้อมูลของตัวเอง",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "memberModalTitle"
+    ).textContent =
+        "แก้ไขข้อมูลสมาชิก";
+
+
+    document.getElementById(
+        "editingMemberId"
+    ).value =
+        member.id;
+
+
+    document.getElementById(
+        "memberNameInput"
+    ).value =
+        member.name;
+
+
+    document.getElementById(
+        "memberTargetInput"
+    ).value =
+        member.targetDays;
+
+
+    tempUnavailableDates =
+        [...(member.unavailable || [])];
+
+
+    const firstDate =
+        tempUnavailableDates.length
+            ? parseDateKey(
+                tempUnavailableDates[0]
+            )
+            : new Date();
+
+
+    unavailablePickerDate =
+        new Date(
+            firstDate.getFullYear(),
+            firstDate.getMonth(),
+            1
+        );
+
+
+    document.getElementById(
+        "unavailableMonthInput"
+    ).value =
+        monthKey(unavailablePickerDate);
+
+
+    renderUnavailablePicker();
+
+
+    document
+        .getElementById("memberModal")
+        .classList.add("show");
+
+}
+
+
+/* =========================================================
+   SAVE MEMBER
+========================================================= */
+
+function saveMember(){
+
+    const id =
+        document.getElementById(
+            "editingMemberId"
+        ).value;
+
+
+    const name =
+        document.getElementById(
+            "memberNameInput"
+        ).value.trim();
+
+
+    let target =
+        Number(
+            document.getElementById(
+                "memberTargetInput"
+            ).value
+        );
+
+
+    if(!name){
+
+        showToast(
+            "กรุณากรอกชื่อสมาชิก",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !Number.isFinite(target) ||
+        target < 0 ||
+        target > 31
+    ){
+
+        showToast(
+            "จำนวนวันที่ต้องการขึ้นเวรต้องอยู่ระหว่าง 0-31 วัน",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    target =
+        Math.floor(target);
+
+
+    const editing =
+        id
+            ? getMemberById(id)
+            : null;
+
+
+    /*
+      ถ้าแก้ไข
+    */
+
+    if(editing){
+
+        if(
+            !isAdmin &&
+            getCurrentMemberId() !== id
+        ){
+
+            showToast(
+                "คุณไม่มีสิทธิ์แก้ไขข้อมูลนี้",
+                "danger"
+            );
+
+            return;
+
+        }
+
+
+        /*
+          บันทึกประวัติก่อนแก้
+        */
+
+        createMemberHistory(
+            editing,
+            tempUnavailableDates,
+            target,
+            "แก้ไขข้อมูล"
+        );
+
+
+        editing.name =
+            name;
+
+        editing.targetDays =
+            target;
+
+        editing.unavailable =
+            [...tempUnavailableDates];
+
+        editing.updatedAt =
+            new Date().toISOString();
+
+
+        /*
+          สมาชิกปัจจุบันยังอยู่เหมือนเดิม
+          การลบประวัติภายหลังไม่กระทบตรงนี้
+        */
+
+        saveState();
+
+        closeModal("memberModal");
+
+        renderAll();
+
+        showToast(
+            "แก้ไขข้อมูลสมาชิกแล้ว",
+            "success"
+        );
+
+        return;
+
+    }
+
+
+    /*
+      เพิ่มสมาชิกใหม่
+    */
+
+    const newMember = {
+
+        id:uuid(),
+
+        name:name,
+
+        unavailable:[
+            ...tempUnavailableDates
+        ],
+
+        targetDays:target,
+
+        ownerId:uuid(),
+
+        createdAt:
+            new Date().toISOString(),
+
+        updatedAt:
+            new Date().toISOString()
+
+    };
+
+
+    state.members.push(
+        newMember
+    );
+
+
+    /*
+      ตั้งสมาชิกใหม่เป็นสมาชิกปัจจุบัน
+      สำหรับ browser เครื่องนี้
+    */
+
+    localStorage.setItem(
+        CURRENT_MEMBER_KEY,
+        newMember.id
+    );
+
+
+    /*
+      เก็บประวัติการเพิ่ม
+    */
+
+    createMemberHistory(
+        newMember,
+        newMember.unavailable,
+        newMember.targetDays,
+        "เพิ่มสมาชิก"
+    );
+
+
+    saveState();
+
+    closeModal("memberModal");
+
+    renderAll();
+
+
+    showToast(
+        "เพิ่มสมาชิกเรียบร้อยแล้ว",
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   CURRENT MEMBER
+========================================================= */
+
+function getCurrentMemberId(){
+
+    return localStorage.getItem(
+        CURRENT_MEMBER_KEY
+    );
+
+}
+
+
+/* =========================================================
+   DELETE MEMBER
+========================================================= */
+
+function deleteMember(memberId){
+
+    const member =
+        getMemberById(memberId);
+
+    if(!member) return;
+
+
+    if(
+        !isAdmin &&
+        getCurrentMemberId() !== memberId
+    ){
+
+        showToast(
+            "คุณสามารถลบได้เฉพาะข้อมูลของตัวเอง",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    const ok =
+        confirm(
+            `ต้องการลบสมาชิก "${member.name}" หรือไม่?\n\n` +
+            `ข้อมูลสมาชิกปัจจุบันจะถูกลบ\n` +
+            `แต่ประวัติที่บันทึกไว้จะยังคงอยู่`
+        );
+
+
+    if(!ok) return;
+
+
+    state.members =
+        state.members.filter(
+            m => m.id !== memberId
+        );
+
+
+    /*
+      เอาออกจากตารางเวรในอนาคต
+      แต่ไม่ลบประวัติ
+    */
+
+    Object.keys(
+        state.schedules
+    ).forEach(key => {
+
+        const schedule =
+            state.schedules[key];
+
+        Object.keys(schedule)
+            .forEach(date => {
+
+                schedule[date] =
+                    (schedule[date] || [])
+                    .filter(
+                        id => id !== memberId
+                    );
+
+            });
+
+    });
+
+
+    saveState();
+
+    renderAll();
+
+
+    showToast(
+        "ลบข้อมูลสมาชิกแล้ว แต่ประวัติยังอยู่",
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   MEMBERS RENDER
+========================================================= */
+
+function renderMembers(){
+
+    const container =
+        document.getElementById(
+            "membersList"
+        );
+
+    if(!container) return;
+
+
+    if(state.members.length === 0){
+
+        container.innerHTML = `
+            <div class="empty" style="grid-column:1/-1">
+                <div class="empty-icon">👩‍⚕️</div>
+                <div>ยังไม่มีข้อมูลสมาชิก</div>
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        state.members
+            .map(member => {
+
+                const isMine =
+                    getCurrentMemberId() === member.id;
+
+
+                const unavailable =
+                    member.unavailable || [];
+
+
+                const sorted =
+                    [...unavailable]
+                    .sort();
+
+
+                const unavailableHtml =
+                    sorted.length
+                        ? `
+                            <div class="unavailable-list">
+                                ${
+                                    sorted
+                                    .map(
+                                        d =>
+                                        `<span class="date-pill">
+                                            ${escapeHtml(
+                                                formatThaiDate(d)
+                                            )}
+                                        </span>`
+                                    )
+                                    .join("")
+                                }
+                            </div>
+                          `
+                        : `
+                            <span
+                                style="color:var(--muted);font-size:12px">
+                                ไม่มีวันที่ติดธุระ
+                            </span>
+                          `;
+
+
+                let actionButtons = "";
+
+
+                if(isAdmin){
+
+                    actionButtons = `
+
+                        <button
+                            class="btn btn-secondary"
+                            onclick="openEditMemberModal('${member.id}')">
+                            ✏️ แก้ไข
+                        </button>
+
+                        <button
+                            class="btn btn-danger"
+                            onclick="deleteMember('${member.id}')">
+                            🗑️ ลบ
+                        </button>
+
+                    `;
+
+                }else if(isMine){
+
+                    actionButtons = `
+
+                        <button
+                            class="btn btn-secondary"
+                            onclick="openEditMemberModal('${member.id}')">
+                            ✏️ แก้ไขข้อมูลของฉัน
+                        </button>
+
+                        <button
+                            class="btn btn-danger"
+                            onclick="deleteMember('${member.id}')">
+                            🗑️ ลบข้อมูลของฉัน
+                        </button>
+
+                    `;
+
+                }else{
+
+                    /*
+                      สมาชิกทั่วไปจะไม่สามารถแก้ไขสมาชิกคนอื่น
+                    */
+
+                    actionButtons = `
+
+                        <span
+                            style="
+                                font-size:11px;
+                                color:var(--muted);
+                                padding:8px 0">
+                            🔒 ข้อมูลสมาชิกคนอื่น
+                        </span>
+
+                    `;
+
+                }
+
+
+                return `
+
+                    <div class="member-card">
+
+                        <div class="member-head">
+
+                            <div class="member-avatar">
+                                ${escapeHtml(
+                                    member.name.charAt(0)
+                                )}
+                            </div>
+
+                            <div>
+
+                                <div class="member-name">
+                                    ${escapeHtml(member.name)}
+                                </div>
+
+                                <div class="member-sub">
+                                    ${
+                                        isMine
+                                            ? "ข้อมูลของฉัน"
+                                            : "สมาชิก"
+                                    }
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="member-info">
+
+                            <div class="member-info-row">
+
+                                <span>
+                                    🎯 วันที่ต้องการขึ้นเวร
+                                </span>
+
+                                <strong>
+                                    ${member.targetDays} วัน
+                                </strong>
+
+                            </div>
+
+
+                            <div style="
+                                font-size:12px;
+                                color:var(--muted);
+                                margin-top:10px">
+
+                                🚫 วันที่ติดธุระ
+
+                            </div>
+
+
+                            ${unavailableHtml}
+
+
+                            <div class="member-actions">
+
+                                ${actionButtons}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            })
+            .join("");
+
+}
+
+
+/* =========================================================
+   UNAVAILABLE DATE PICKER
+========================================================= */
+
+function renderUnavailablePicker(){
+
+    const input =
+        document.getElementById(
+            "unavailableMonthInput"
+        );
+
+
+    if(input.value){
+
+        const [y,m] =
+            input.value
+            .split("-")
+            .map(Number);
+
+        unavailablePickerDate =
+            new Date(
+                y,
+                m-1,
+                1
+            );
+
+    }
+
+
+    const year =
+        unavailablePickerDate
+            .getFullYear();
+
+    const month =
+        unavailablePickerDate
+            .getMonth();
+
+
+    document.getElementById(
+        "unavailablePickerTitle"
+    ).textContent =
+        THAI_MONTHS[month] +
+        " " +
+        (year+543);
+
+
+    const grid =
+        document.getElementById(
+            "unavailablePickerGrid"
+        );
+
+
+    grid.innerHTML = "";
+
+
+    /*
+      วันในสัปดาห์
+    */
+
+    WEEKDAYS.forEach(day => {
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "weekday";
+
+        div.textContent =
+            day;
+
+        grid.appendChild(div);
+
+    });
+
+
+    const firstDay =
+        new Date(
+            year,
+            month,
+            1
+        ).getDay();
+
+
+    const total =
+        daysInMonth(
+            year,
+            month
+        );
+
+
+    for(let i=0;i<firstDay;i++){
+
+        const empty =
+            document.createElement("div");
+
+        empty.className =
+            "date-select-empty";
+
+        grid.appendChild(empty);
+
+    }
+
+
+    for(
+        let day=1;
+        day<=total;
+        day++
+    ){
+
+        const key =
+            year +
+            "-" +
+            pad(month+1) +
+            "-" +
+            pad(day);
+
+
+        const button =
+            document.createElement("button");
+
+        button.type =
+            "button";
+
+        button.className =
+            "date-select-cell";
+
+
+        if(
+            tempUnavailableDates.includes(
+                key
+            )
+        ){
+
+            button.classList.add(
+                "selected"
+            );
+
+        }
+
+
+        const todayKey =
+            dateKey(new Date());
+
+
+        if(key === todayKey){
+
+            button.classList.add(
+                "today"
+            );
+
+        }
+
+
+        button.textContent =
+            day;
+
+
+        button.onclick = () => {
+
+            toggleUnavailableDate(
+                key
+            );
+
+        };
+
+
+        grid.appendChild(button);
+
+    }
+
+
+    updateUnavailableSummary();
+
+}
+
+
+function toggleUnavailableDate(key){
+
+    const index =
+        tempUnavailableDates.indexOf(
+            key
+        );
+
+
+    if(index >= 0){
+
+        tempUnavailableDates.splice(
+            index,
+            1
+        );
+
+    }else{
+
+        tempUnavailableDates.push(
+            key
+        );
+
+    }
+
+
+    tempUnavailableDates =
+        [...new Set(
+            tempUnavailableDates
+        )];
+
+
+    renderUnavailablePicker();
+
+}
+
+
+function changeUnavailableMonth(delta){
+
+    unavailablePickerDate =
+        new Date(
+            unavailablePickerDate.getFullYear(),
+            unavailablePickerDate.getMonth()+delta,
+            1
+        );
+
+
+    document.getElementById(
+        "unavailableMonthInput"
+    ).value =
+        monthKey(
+            unavailablePickerDate
+        );
+
+
+    renderUnavailablePicker();
+
+}
+
+
+function updateUnavailableSummary(){
+
+    const summary =
+        document.getElementById(
+            "selectedUnavailableSummary"
+        );
+
+
+    if(
+        tempUnavailableDates.length === 0
+    ){
+
+        summary.innerHTML = `
+            <div class="alert alert-success">
+                ยังไม่ได้เลือกวันที่ติดธุระ
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    const sorted =
+        [...tempUnavailableDates]
+        .sort();
+
+
+    summary.innerHTML = `
+
+        <div class="alert alert-warning">
+
+            <strong>
+                เลือกแล้ว ${sorted.length} วัน
+            </strong>
+
+            <div
+                style="
+                    display:flex;
+                    flex-wrap:wrap;
+                    gap:6px;
+                    margin-top:8px">
+
+                ${
+                    sorted.map(
+                        d =>
+                        `<span class="date-pill">
+                            ${escapeHtml(
+                                formatThaiDate(d)
+                            )}
+                        </span>`
+                    ).join("")
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   SCHEDULE MONTH INIT
+========================================================= */
+
+function initializeDefaultMonths(){
+
+    if(
+        !currentScheduleDate ||
+        isNaN(
+            currentScheduleDate.getTime()
+        )
+    ){
+
+        currentScheduleDate =
+            new Date();
+
+    }
+
+}
+
+
+/* =========================================================
+   SCHEDULE MONTH SELECT
+========================================================= */
+
+function getCurrentScheduleMonthKey(){
+
+    return monthKey(
+        currentScheduleDate
+    );
+
+}
+
+
+function changeScheduleMonth(delta){
+
+    currentScheduleDate =
+        new Date(
+            currentScheduleDate.getFullYear(),
+            currentScheduleDate.getMonth()+delta,
+            1
+        );
+
+    renderSchedule();
+
+}
+
+
+function selectScheduleMonth(){
+
+    const value =
+        document.getElementById(
+            "scheduleMonthSelect"
+        ).value;
+
+
+    if(!value) return;
+
+
+    const [y,m] =
+        value
+        .split("-")
+        .map(Number);
+
+
+    currentScheduleDate =
+        new Date(
+            y,
+            m-1,
+            1
+        );
+
+
+    renderSchedule();
+
+}
+
+
+/* =========================================================
+   SCHEDULE RENDER
+========================================================= */
+
+function renderSchedule(){
+
+    const key =
+        getCurrentScheduleMonthKey();
+
+
+    const title =
+        document.getElementById(
+            "scheduleMonthTitle"
+        );
+
+
+    title.textContent =
+        "ตารางเวร " +
+        formatThaiMonth(key);
+
+
+    document.getElementById(
+        "scheduleRoleText"
+    ).textContent =
+        isAdmin
+            ? "Admin สามารถจัดเวรและลากย้ายเวรได้"
+            : "สมาชิกทั่วไปดูตารางเวรได้อย่างเดียว";
+
+
+    const select =
+        document.getElementById(
+            "scheduleMonthSelect"
+        );
+
+
+    /*
+      ให้เลือกเดือนย้อนหลัง/ล่วงหน้า 12 เดือน
+    */
+
+    select.innerHTML = "";
+
+
+    for(
+        let offset=-12;
+        offset<=12;
+        offset++
+    ){
+
+        const d =
+            new Date(
+                currentScheduleDate.getFullYear(),
+                currentScheduleDate.getMonth()+offset,
+                1
+            );
+
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            monthKey(d);
+
+        option.textContent =
+            formatThaiMonth(
+                monthKey(d)
+            );
+
+
+        if(
+            option.value === key
+        ){
+
+            option.selected =
+                true;
+
+        }
+
+
+        select.appendChild(
+            option
+        );
+
+    }
+
+
+    document.getElementById(
+        "generateScheduleBtn"
+    ).style.display =
+        isAdmin
+            ? "inline-block"
+            : "none";
+
+
+    document.getElementById(
+        "clearScheduleBtn"
+    ).style.display =
+        isAdmin
+            ? "inline-block"
+            : "none";
+
+
+    document.getElementById(
+        "exportScheduleBtn"
+    ).style.display =
+        isAdmin
+            ? "inline-block"
+            : "none";
+
+
+    document.getElementById(
+        "scheduleAdminInfo"
+    ).style.display =
+        isAdmin
+            ? "block"
+            : "none";
+
+
+    renderScheduleCalendar();
+
+}
+
+
+/* =========================================================
+   SCHEDULE CALENDAR
+========================================================= */
+
+function renderScheduleCalendar(){
+
+    const container =
+        document.getElementById(
+            "scheduleCalendar"
+        );
+
+
+    const key =
+        getCurrentScheduleMonthKey();
+
+
+    const [year,monthNumber] =
+        key.split("-").map(Number);
+
+
+    const month =
+        monthNumber - 1;
+
+
+    const schedule =
+        state.schedules[key] || {};
+
+
+    container.innerHTML = "";
+
+
+    WEEKDAYS.forEach(day => {
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "weekday";
+
+        div.textContent =
+            day;
+
+        container.appendChild(div);
+
+    });
+
+
+    const firstDay =
+        new Date(
+            year,
+            month,
+            1
+        ).getDay();
+
+
+    const total =
+        daysInMonth(
+            year,
+            month
+        );
+
+
+    for(let i=0;i<firstDay;i++){
+
+        const empty =
+            document.createElement("div");
+
+        empty.className =
+            "day-cell day-empty";
+
+        container.appendChild(
+            empty
+        );
+
+    }
+
+
+    for(
+        let day=1;
+        day<=total;
+        day++
+    ){
+
+        const keyDate =
+            year +
+            "-" +
+            pad(month+1) +
+            "-" +
+            pad(day);
+
+
+        const cell =
+            document.createElement("div");
+
+        cell.className =
+            "day-cell";
+
+
+        cell.dataset.date =
+            keyDate;
+
+
+        const assigned =
+            schedule[keyDate] || [];
+
+
+        /*
+          แสดงเลขวันที่
+        */
+
+        cell.innerHTML = `
+
+            <div class="day-number">
+                ${day}
+            </div>
+
+        `;
+
+
+        /*
+          ถ้าวันนี้ไม่มีสมาชิก
+        */
+
+        if(assigned.length === 0){
+
+            const empty =
+                document.createElement("div");
+
+            empty.style.cssText =
+                "font-size:10px;color:#a1afa9";
+
+            empty.textContent =
+                "ยังไม่มีเวร";
+
+            cell.appendChild(empty);
+
+        }
+
+
+        /*
+          แสดงชื่อสมาชิก
+        */
+
+        assigned.forEach(
+            memberId => {
+
+                const member =
+                    getMemberById(
+                        memberId
+                    );
+
+
+                if(!member) return;
+
+
+                const chip =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                chip.className =
+                    "duty-chip" +
+                    (
+                        isAdmin
+                            ? " admin-draggable"
+                            : ""
+                    );
+
+
+                chip.textContent =
+                    member.name;
+
+
+                chip.title =
+                    isAdmin
+                        ? "ลากเพื่อย้ายเวร"
+                        : member.name;
+
+
+                if(isAdmin){
+
+                    chip.draggable =
+                        true;
+
+
+                    chip.dataset.memberId =
+                        memberId;
+
+                    chip.dataset.date =
+                        keyDate;
+
+
+                    chip.addEventListener(
+                        "dragstart",
+                        handleDutyDragStart
+                    );
+
+                    chip.addEventListener(
+                        "click",
+                        () => {
+
+                            openMoveDutyModal(
+                                memberId,
+                                keyDate
+                            );
+
+                        }
+                    );
+
+                }
+
+
+                cell.appendChild(
+                    chip
+                );
+
+            }
+        );
+
+
+        /*
+          Admin drop
+        */
+
+        if(isAdmin){
+
+            cell.addEventListener(
+                "dragover",
+                event => {
+
+                    event.preventDefault();
+
+                    cell.classList.add(
+                        "day-drop-active"
+                    );
+
+                }
+            );
+
+
+            cell.addEventListener(
+                "dragleave",
+                () => {
+
+                    cell.classList.remove(
+                        "day-drop-active"
+                    );
+
+                }
+            );
+
+
+            cell.addEventListener(
+                "drop",
+                event => {
+
+                    event.preventDefault();
+
+                    cell.classList.remove(
+                        "day-drop-active"
+                    );
+
+
+                    const memberId =
+                        event.dataTransfer
+                        .getData(
+                            "memberId"
+                        );
+
+
+                    const fromDate =
+                        event.dataTransfer
+                        .getData(
+                            "fromDate"
+                        );
+
+
+                    if(
+                        memberId &&
+                        fromDate
+                    ){
+
+                        moveDuty(
+                            memberId,
+                            fromDate,
+                            keyDate
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        container.appendChild(
+            cell
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DRAG
+========================================================= */
+
+function handleDutyDragStart(event){
+
+    if(!isAdmin){
+
+        event.preventDefault();
+
+        return;
+
+    }
+
+
+    event.dataTransfer.setData(
+        "memberId",
+        event.currentTarget.dataset.memberId
+    );
+
+
+    event.dataTransfer.setData(
+        "fromDate",
+        event.currentTarget.dataset.date
+    );
+
+}
+
+
+/* =========================================================
+   GET CONSECUTIVE
+========================================================= */
+
+function getConsecutiveCount(
+    schedule,
+    date,
+    memberId
+){
+
+    let count = 0;
+
+    let current =
+        parseDateKey(date);
+
+
+    while(true){
+
+        current =
+            new Date(
+                current.getFullYear(),
+                current.getMonth(),
+                current.getDate()-1
+            );
+
+
+        const key =
+            dateKey(current);
+
+
+        if(
+            !schedule[key] ||
+            !schedule[key].includes(
+                memberId
+            )
+        ){
+
+            break;
+
+        }
+
+
+        count++;
+
+
+        if(count >= 4){
+
+            break;
+
+        }
+
+    }
+
+
+    return count;
+
+}
+
+
+/* =========================================================
+   VALIDATE MAX 3 CONSECUTIVE
+========================================================= */
+
+function maxConsecutiveForMember(
+    schedule,
+    memberId
+){
+
+    const dates =
+        Object.keys(schedule)
+        .sort();
+
+
+    let max = 0;
+    let current = 0;
+    let previousDate = null;
+
+
+    dates.forEach(key => {
+
+        const assigned =
+            (schedule[key] || [])
+            .includes(memberId);
+
+
+        if(!assigned){
+
+            current = 0;
+
+            previousDate = null;
+
+            return;
+
+        }
+
+
+        const d =
+            parseDateKey(key);
+
+
+        if(
+            previousDate &&
+            (
+                d - previousDate
+            ) === 86400000
+        ){
+
+            current++;
+
+        }else{
+
+            current = 1;
+
+        }
+
+
+        max =
+            Math.max(
+                max,
+                current
+            );
+
+
+        previousDate =
+            d;
+
+    });
+
+
+    return max;
+
+}
+
+
+function scheduleHasFourConsecutive(
+    schedule,
+    memberId
+){
+
+    return (
+        maxConsecutiveForMember(
+            schedule,
+            memberId
+        ) > 3
+    );
+
+}
+
+
+/* =========================================================
+   CAN ASSIGN
+========================================================= */
+
+function canAssign(
+    schedule,
+    date,
+    memberId
+){
+
+    const member =
+        getMemberById(memberId);
+
+
+    if(!member){
+
+        return {
+            ok:false,
+            reason:"ไม่พบสมาชิก"
+        };
+
+    }
+
+
+    if(
+        (schedule[date] || [])
+        .includes(memberId)
+    ){
+
+        return {
+            ok:false,
+            reason:"สมาชิกคนนี้มีเวรในวันนี้แล้ว"
+        };
+
+    }
+
+
+    if(
+        (member.unavailable || [])
+        .includes(date)
+    ){
+
+        return {
+            ok:false,
+            reason:
+                `${member.name} ติดธุระในวันที่ ${formatThaiDate(date)}`
+        };
+
+    }
+
+
+    if(
+        (schedule[date] || [])
+        .length >= 2
+    ){
+
+        return {
+            ok:false,
+            reason:"วันนี้มีสมาชิกครบ 2 คนแล้ว"
+        };
+
+    }
+
+
+    /*
+      ทดลองใส่แล้วตรวจ 4 วันติด
+    */
+
+    const testSchedule =
+        JSON.parse(
+            JSON.stringify(schedule)
+        );
+
+
+    if(!testSchedule[date]){
+
+        testSchedule[date] = [];
+
+    }
+
+
+    testSchedule[date].push(
+        memberId
+    );
+
+
+    if(
+        scheduleHasFourConsecutive(
+            testSchedule,
+            memberId
+        )
+    ){
+
+        return {
+            ok:false,
+            reason:
+                `${member.name} จะขึ้นเวรเกิน 3 วันติดต่อกัน`
+        };
+
+    }
+
+
+    return {
+        ok:true
+    };
+
+}
+
+
+/* =========================================================
+   GENERATE SCHEDULE
+========================================================= */
+
+function generateCurrentSchedule(){
+
+    if(!isAdmin){
+
+        showToast(
+            "เฉพาะ Admin เท่านั้นที่จัดเวรได้",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        state.members.length === 0
+    ){
+
+        showToast(
+            "ยังไม่มีสมาชิก",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    const key =
+        getCurrentScheduleMonthKey();
+
+
+    const ok =
+        confirm(
+            `ต้องการสุ่มจัดตารางเวร ${formatThaiMonth(key)} หรือไม่?\n\n` +
+            `ตารางเดิมของเดือนนี้จะถูกแทนที่`
+        );
+
+
+    if(!ok) return;
+
+
+    const schedule = {};
+
+
+    const [year,monthNumber] =
+        key.split("-").map(Number);
+
+
+    const month =
+        monthNumber - 1;
+
+
+    const total =
+        daysInMonth(
+            year,
+            month
+        );
+
+
+    /*
+      คำนวณเป้าหมายแบบ guideline
+
+      targetDays = จำนวนที่สมาชิกต้องการ
+      carryOver = จำนวนที่เดือนก่อนทำไม่ได้
+
+      แต่ไม่เคยใช้เป้าหมายเพื่อฝืน:
+      - max 2/day
+      - unavailable
+      - max 3 consecutive
+    */
+
+    const desired = {};
+
+
+    state.members.forEach(
+        member => {
+
+            const carry =
+                Number(
+                    state.carryOver[
+                        member.id
+                    ] || 0
+                );
+
+
+            desired[member.id] =
+                Math.min(
+                    31,
+                    Number(member.targetDays || 0) +
+                    carry
+                );
+
+        }
+    );
+
+
+    const assignedCount = {};
+
+
+    state.members.forEach(
+        member => {
+
+            assignedCount[
+                member.id
+            ] = 0;
+
+        }
+    );
+
+
+    /*
+      วัน 1 -> วันสุดท้าย
+    */
+
+    for(
+        let day=1;
+        day<=total;
+        day++
+    ){
+
+        const date =
+            year +
+            "-" +
+            pad(month+1) +
+            "-" +
+            pad(day);
+
+
+        schedule[date] = [];
+
+
+        /*
+          candidates
+        */
+
+        let candidates =
+            state.members.filter(
+                member => {
+
+                    const check =
+                        canAssign(
+                            schedule,
+                            date,
+                            member.id
+                        );
+
+
+                    return check.ok;
+
+                }
+            );
+
+
+        /*
+          random ก่อน
+        */
+
+        candidates =
+            shuffle(candidates);
+
+
+        /*
+          จัดลำดับโดยดู target ratio
+
+          คนที่ได้เวรน้อยเมื่อเทียบกับเป้าหมาย
+          จะมีโอกาสถูกเลือกมากขึ้น
+
+          ถ้า target 0 จะไม่ใช่ hard rule
+          เพราะสมาชิกยังสามารถถูกจัดได้หากจำเป็น
+        */
+
+        candidates.sort(
+            (a,b) => {
+
+                const ar =
+                    desired[a.id] > 0
+                        ? assignedCount[a.id] /
+                          desired[a.id]
+                        : assignedCount[a.id] + 1;
+
+                const br =
+                    desired[b.id] > 0
+                        ? assignedCount[b.id] /
+                          desired[b.id]
+                        : assignedCount[b.id] + 1;
+
+
+                /*
+                  random tie break
+                */
+
+                if(
+                    Math.abs(ar-br) < 0.0001
+                ){
+
+                    return Math.random()-.5;
+
+                }
+
+
+                return ar-br;
+
+            }
+        );
+
+
+        /*
+          เลือกสูงสุด 2 คน
+        */
+
+        for(
+            const member of candidates
+        ){
+
+            if(
+                schedule[date].length >= 2
+            ){
+
+                break;
+
+            }
+
+
+            const check =
+                canAssign(
+                    schedule,
+                    date,
+                    member.id
+                );
+
+
+            if(!check.ok){
+
+                continue;
+
+            }
+
+
+            schedule[date].push(
+                member.id
+            );
+
+
+            assignedCount[
+                member.id
+            ]++;
+
+        }
+
+    }
+
+
+    state.schedules[key] =
+        schedule;
+
+
+    /*
+      คำนวณ carry over
+
+      หาก target + carry ยังทำไม่ได้
+      ส่วนที่เหลือจะถูกส่งเป็นแนวทางไปเดือนหน้า
+
+      ไม่ใช่การบังคับ
+    */
+
+    state.members.forEach(
+        member => {
+
+            const wanted =
+                desired[member.id] || 0;
+
+
+            const actual =
+                assignedCount[
+                    member.id
+                ] || 0;
+
+
+            const remaining =
+                Math.max(
+                    0,
+                    wanted - actual
+                );
+
+
+            state.carryOver[
+                member.id
+            ] =
+                Math.min(
+                    31,
+                    remaining
+                );
+
+        }
+    );
+
+
+    /*
+      บันทึกว่าเดือนนี้จัดเวรแล้ว
+
+      ใช้สำหรับตรวจประวัติวันติดธุระ
+      ที่เพิ่มหลังจากเดือนที่จัดเวร
+    */
+
+    if(!state.schedules[key].meta){
+
+        state.schedules[key].meta = {};
+
+    }
+
+
+    state.schedules[key].meta.generatedAt =
+        new Date().toISOString();
+
+
+    saveState();
+
+    renderSchedule();
+
+    renderHome();
+
+
+    showToast(
+        "สุ่มจัดตารางเวรเรียบร้อยแล้ว",
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   CLEAR SCHEDULE
+========================================================= */
+
+function clearCurrentSchedule(){
+
+    if(!isAdmin) return;
+
+
+    const key =
+        getCurrentScheduleMonthKey();
+
+
+    if(
+        !state.schedules[key]
+    ){
+
+        showToast(
+            "เดือนนี้ยังไม่มีตารางเวร",
+            "info"
+        );
+
+        return;
+
+    }
+
+
+    const ok =
+        confirm(
+            `ต้องการล้างตารางเวร ${formatThaiMonth(key)} หรือไม่?`
+        );
+
+
+    if(!ok) return;
+
+
+    delete state.schedules[key];
+
+
+    saveState();
+
+    renderAll();
+
+
+    showToast(
+        "ล้างตารางเดือนนี้แล้ว",
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   MOVE DUTY
+========================================================= */
+
+function moveDuty(
+    memberId,
+    fromDate,
+    toDate
+){
+
+    if(!isAdmin){
+
+        showToast(
+            "เฉพาะ Admin เท่านั้น",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    if(fromDate === toDate){
+
+        return;
+
+    }
+
+
+    const key =
+        getCurrentScheduleMonthKey();
+
+
+    const schedule =
+        state.schedules[key];
+
+
+    if(!schedule){
+
+        return;
+
+    }
+
+
+    /*
+      ตรวจสอบว่าทั้งสองวันอยู่ในเดือนเดียวกัน
+    */
+
+    if(
+        !fromDate.startsWith(key) ||
+        !toDate.startsWith(key)
+    ){
+
+        showToast(
+            "การลากย้ายเวรต้องอยู่ภายในเดือนเดียวกัน",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !(schedule[fromDate] || [])
+        .includes(memberId)
+    ){
+
+        showToast(
+            "ไม่พบเวรเดิม",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    const targetSchedule =
+        JSON.parse(
+            JSON.stringify(schedule)
+        );
+
+
+    targetSchedule[fromDate] =
+        (targetSchedule[fromDate] || [])
+        .filter(
+            id => id !== memberId
+        );
+
+
+    const check =
+        canAssign(
+            targetSchedule,
+            toDate,
+            memberId
+        );
+
+
+    if(!check.ok){
+
+        showToast(
+            "ย้ายเวรไม่ได้: " +
+            check.reason,
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    targetSchedule[toDate] =
+        targetSchedule[toDate] || [];
+
+
+    targetSchedule[toDate].push(
+        memberId
+    );
+
+
+    /*
+      ตรวจทั้งเดือนอีกครั้ง
+    */
+
+    const member =
+        getMemberById(memberId);
+
+
+    if(
+        scheduleHasFourConsecutive(
+            targetSchedule,
+            memberId
+        )
+    ){
+
+        showToast(
+            `${member.name} จะขึ้นเวรเกิน 3 วันติด`,
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    state.schedules[key] =
+        targetSchedule;
+
+
+    saveState();
+
+    renderSchedule();
+
+
+    showToast(
+        "ย้ายเวรเรียบร้อยแล้ว",
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   MOBILE MOVE DUTY
+========================================================= */
+
+function openMoveDutyModal(
+    memberId,
+    fromDate
+){
+
+    if(!isAdmin) return;
+
+
+    movingDuty = {
+        memberId,
+        fromDate
+    };
+
+
+    const select =
+        document.getElementById(
+            "moveMemberSelect"
+        );
+
+
+    select.innerHTML = "";
+
+
+    const member =
+        getMemberById(memberId);
+
+
+    if(member){
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            memberId;
+
+        option.textContent =
+            member.name;
+
+        select.appendChild(
+            option
+        );
+
+    }
+
+
+    document.getElementById(
+        "moveDateInput"
+    ).value = "";
+
+
+    document
+        .getElementById("moveDutyModal")
+        .classList.add("show");
+
+}
+
+
+function confirmMoveDuty(){
+
+    if(!movingDuty){
+
+        return;
+
+    }
+
+
+    const toDate =
+        document.getElementById(
+            "moveDateInput"
+        ).value;
+
+
+    if(!toDate){
+
+        showToast(
+            "กรุณาเลือกวันที่ปลายทาง",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    moveDuty(
+        movingDuty.memberId,
+        movingDuty.fromDate,
+        toDate
+    );
+
+
+    movingDuty = null;
+
+    closeModal(
+        "moveDutyModal"
+    );
+
+}
+
+
+/* =========================================================
+   EXPORT A4 PNG
+========================================================= */
+
+async function exportCurrentSchedule(){
+
+    if(!isAdmin){
+
+        showToast(
+            "เฉพาะ Admin เท่านั้น",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        typeof html2canvas === "undefined"
+    ){
+
+        showToast(
+            "ไม่พบระบบ Export กรุณาเชื่อมต่ออินเทอร์เน็ต",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    const calendar =
+        document.getElementById(
+            "scheduleExportArea"
+        );
+
+
+    try{
+
+        showToast(
+            "กำลังสร้างรูป PNG...",
+            "success"
+        );
+
+
+        const canvas =
+            await html2canvas(
+                calendar,
+                {
+                    scale:2,
+                    backgroundColor:"#ffffff",
+                    useCORS:true
+                }
+            );
+
+
+        const a =
+            document.createElement("a");
+
+
+        a.download =
+            "Lovely-Med-Clinic-" +
+            getCurrentScheduleMonthKey() +
+            ".png";
+
+
+        a.href =
+            canvas.toDataURL(
+                "image/png"
+            );
+
+
+        a.click();
+
+
+        showToast(
+            "Export PNG สำเร็จ",
+            "success"
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+        showToast(
+            "Export ไม่สำเร็จ",
+            "danger"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   HISTORY IMAGE
+========================================================= */
+
+function compressImage(
+    file,
+    maxWidth = 1600,
+    quality = .78
+){
+
+    return new Promise(
+        (resolve,reject) => {
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                event => {
+
+                    const img =
+                        new Image();
+
+
+                    img.onload =
+                        () => {
+
+                            const scale =
+                                Math.min(
+                                    1,
+                                    maxWidth /
+                                    img.width
+                                );
+
+
+                            const canvas =
+                                document.createElement(
+                                    "canvas"
+                                );
+
+
+                            canvas.width =
+                                Math.round(
+                                    img.width * scale
+                                );
+
+
+                            canvas.height =
+                                Math.round(
+                                    img.height * scale
+                                );
+
+
+                            const ctx =
+                                canvas.getContext(
+                                    "2d"
+                                );
+
+
+                            ctx.drawImage(
+                                img,
+                                0,
+                                0,
+                                canvas.width,
+                                canvas.height
+                            );
+
+
+                            resolve(
+                                canvas.toDataURL(
+                                    "image/jpeg",
+                                    quality
+                                )
+                            );
+
+                        };
+
+
+                    img.onerror =
+                        reject;
+
+
+                    img.src =
+                        event.target.result;
+
+                };
+
+
+            reader.onerror =
+                reject;
+
+
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   UPLOAD HISTORY
+========================================================= */
+
+async function uploadHistoryImage(){
+
+    if(!isAdmin){
+
+        showToast(
+            "เฉพาะ Admin เท่านั้น",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    const month =
+        document.getElementById(
+            "historyMonth"
+        ).value;
+
+
+    const input =
+        document.getElementById(
+            "historyImageInput"
+        );
+
+
+    const file =
+        input.files[0];
+
+
+    if(!month){
+
+        showToast(
+            "กรุณาเลือกเดือน",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    if(!file){
+
+        showToast(
+            "กรุณาเลือกรูปภาพ",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        const imageData =
+            await compressImage(
+                file
+            );
+
+
+        const item = {
+
+            id:uuid(),
+
+            monthKey:month,
+
+            title:
+                formatThaiMonth(month),
+
+            filename:
+                file.name,
+
+            imageData:imageData,
+
+            uploadedAt:
+                new Date().toISOString()
+
+        };
+
+
+        state.history.unshift(
+            item
+        );
+
+
+        saveState();
+
+
+        input.value = "";
+
+
+        renderHistory();
+
+        renderHome();
+
+
+        showToast(
+            "อัปโหลดรูปเข้าประวัติแล้ว",
+            "success"
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+        showToast(
+            "ไม่สามารถประมวลผลรูปภาพได้",
+            "danger"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   HISTORY RENDER
+========================================================= */
+
+function renderHistory(){
+
+    const container =
+        document.getElementById(
+            "historyGrid"
+        );
+
+
+    const adminPanel =
+        document.getElementById(
+            "historyAdminPanel"
+        );
+
+
+    if(isAdmin){
+
+        adminPanel.style.display =
+            "block";
+
+    }else{
+
+        adminPanel.style.display =
+            "none";
+
+    }
+
+
+    if(
+        state.history.length === 0
+    ){
+
+        container.innerHTML = `
+
+            <div
+                class="empty"
+                style="grid-column:1/-1">
+
+                <div class="empty-icon">
+                    🖼️
+                </div>
+
+                <div>
+                    ยังไม่มีประวัติตารางเวร
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+      เรียงเดือนล่าสุดก่อน
+    */
+
+    const history =
+        [...state.history]
+        .sort(
+            (a,b) => {
+
+                return (
+                    b.monthKey.localeCompare(
+                        a.monthKey
+                    ) ||
+                    b.uploadedAt.localeCompare(
+                        a.uploadedAt
+                    )
+                );
+
+            }
+        );
+
+
+    container.innerHTML =
+        history
+        .map(item => {
+
+            return `
+
+                <div class="history-card">
+
+                    <img
+                        class="history-image"
+                        src="${item.imageData}"
+                        alt="${escapeHtml(item.title)}"
+                        onclick="openImagePreview(
+                            '${item.id}'
+                        )">
+
+                    <div class="history-meta">
+
+                        <strong>
+                            ${escapeHtml(item.title)}
+                        </strong>
+
+                        <small>
+                            ${escapeHtml(
+                                item.filename || ""
+                            )}
+                        </small>
+
+                        <br>
+
+                        <small>
+                            อัปโหลด:
+                            ${new Date(
+                                item.uploadedAt
+                            ).toLocaleString(
+                                "th-TH"
+                            )}
+                        </small>
+
+                    </div>
+
+
+                    ${
+                        isAdmin
+                        ? `
+                            <div class="history-actions">
+
+                                <button
+                                    class="btn btn-danger"
+                                    onclick="deleteHistoryImage('${item.id}')">
+                                    🗑️ ลบรูป
+                                </button>
+
+                            </div>
+                          `
+                        : ""
+                    }
+
+                </div>
+
+            `;
+
+        })
+        .join("");
+
+}
+
+
+/* =========================================================
+   DELETE HISTORY IMAGE
+========================================================= */
+
+function deleteHistoryImage(id){
+
+    if(!isAdmin){
+
+        showToast(
+            "เฉพาะ Admin เท่านั้น",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    const item =
+        state.history.find(
+            h => h.id === id
+        );
+
+
+    if(!item) return;
+
+
+    const ok =
+        confirm(
+            `ต้องการลบประวัติตารางเวร "${item.title}" หรือไม่?`
+        );
+
+
+    if(!ok) return;
+
+
+    state.history =
+        state.history.filter(
+            h => h.id !== id
+        );
+
+
+    saveState();
+
+    renderHistory();
+
+    renderHome();
+
+
+    showToast(
+        "ลบรูปประวัติแล้ว",
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   IMAGE PREVIEW
+========================================================= */
+
+function openImagePreview(id){
+
+    const item =
+        state.history.find(
+            h => h.id === id
+        );
+
+
+    if(!item) return;
+
+
+    document.getElementById(
+        "previewTitle"
+    ).textContent =
+        item.title;
+
+
+    document.getElementById(
+        "previewImage"
+    ).src =
+        item.imageData;
+
+
+    document
+        .getElementById("imagePreviewModal")
+        .classList.add("show");
+
+}
+
+
+/* =========================================================
+   MEMBER HISTORY
+========================================================= */
+
+/*
+  สำคัญ:
+
+  memberHistory เป็นข้อมูลคนละส่วนกับ members
+
+  การลบ memberHistory
+  จะไม่แก้ไข members
+
+  ดังนั้น:
+  Admin ลบประวัติได้
+  แต่ข้อมูลสมาชิกปัจจุบันยังอยู่
+*/
+
+
+function createMemberHistory(
+    member,
+    unavailable,
+    targetDays,
+    action
+){
+
+    const item = {
+
+        id:uuid(),
+
+        memberId:
+            member.id,
+
+        memberName:
+            member.name,
+
+        unavailable:
+            [...(unavailable || [])],
+
+        targetDays:
+            Number(targetDays || 0),
+
+        action:
+            action,
+
+        recordedAt:
+            new Date().toISOString(),
+
+        /*
+          ใช้ตรวจว่าเป็นข้อมูลที่เพิ่มหลังจาก
+          เดือนที่จัดเวรล่าสุดหรือไม่
+        */
+
+        hasNewUnavailableAfterSchedule:
+            false,
+
+        checkedByAdmin:false
+
+    };
+
+
+    /*
+      ตรวจวันติดธุระใหม่
+    */
+
+    const latestScheduleMonth =
+        getLatestGeneratedScheduleMonth();
+
+
+    if(latestScheduleMonth){
+
+        const lastScheduleDate =
+            new Date(
+                latestScheduleMonth +
+                "-01T23:59:59"
+            );
+
+
+        item.hasNewUnavailableAfterSchedule =
+            (unavailable || [])
+            .some(
+                d => {
+
+                    const unavailableDate =
+                        parseDateKey(d);
+
+
+                    /*
+                      วันที่ติดธุระที่อยู่หลัง
+                      เดือนล่าสุดที่จัดเวร
+                    */
+
+                    return (
+                        unavailableDate >
+                        lastScheduleDate
+                    );
+
+                }
+            );
+
+    }
+
+
+    state.memberHistory.unshift(
+        item
+    );
+
+}
+
+
+/* =========================================================
+   LATEST SCHEDULE MONTH
+========================================================= */
+
+function getLatestGeneratedScheduleMonth(){
+
+    const keys =
+        Object.keys(
+            state.schedules
+        );
+
+
+    if(keys.length === 0){
+
+        return null;
+
+    }
+
+
+    /*
+      เอาเฉพาะเดือนที่มี generatedAt
+    */
+
+    const generated =
+        keys.filter(
+            key =>
+                state.schedules[key] &&
+                state.schedules[key].meta &&
+                state.schedules[key].meta.generatedAt
+        );
+
+
+    if(generated.length === 0){
+
+        return null;
+
+    }
+
+
+    generated.sort(
+        (a,b) =>
+            state.schedules[b]
+                .meta
+                .generatedAt
+                .localeCompare(
+                    state.schedules[a]
+                        .meta
+                        .generatedAt
+                )
+    );
+
+
+    return generated[0];
+
+}
+
+
+/* =========================================================
+   CHECK NEW MEMBER HISTORY
+========================================================= */
+
+function getNewMemberHistoryCount(){
+
+    return state.memberHistory.filter(
+        h =>
+            h.hasNewUnavailableAfterSchedule &&
+            !h.checkedByAdmin
+    ).length;
+
+}
+
+
+function checkAdminMemberHistoryAlert(){
+
+    if(!isAdmin){
+
+        return;
+
+    }
+
+
+    const count =
+        getNewMemberHistoryCount();
+
+
+    if(count <= 0){
+
+        renderHome();
+
+        return;
+
+    }
+
+
+    renderHome();
+
+
+    /*
+      แจ้งเตือนทุกครั้งที่ login
+      จนกว่า Admin จะลบประวัติ
+      หรือระบบถูกทำเครื่องหมายว่าอ่านแล้ว
+    */
+
+    setTimeout(
+        () => {
+
+            alert(
+                `🔔 แจ้งเตือน Admin\n\n` +
+                `พบประวัติข้อมูลสมาชิก ${count} รายการ\n` +
+                `ที่มีวันติดธุระใหม่หลังจากเดือนที่จัดเวรล่าสุด\n\n` +
+                `กรุณาตรวจสอบที่เมนู "ประวัติข้อมูลสมาชิก"`
+            );
+
+        },
+        400
+    );
+
+}
+
+
+/* =========================================================
+   ADMIN MEMBER HISTORY OPEN
+========================================================= */
+
+function openAdminMemberHistory(){
+
+    if(!isAdmin){
+
+        showToast(
+            "เมนูนี้เฉพาะ Admin",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    showView(
+        "admin-member-history"
+    );
+
+}
+
+
+/* =========================================================
+   RENDER ADMIN MEMBER HISTORY
+========================================================= */
+
+function renderAdminMemberHistory(){
+
+    if(!isAdmin){
+
+        return;
+
+    }
+
+
+    const container =
+        document.getElementById(
+            "memberHistoryList"
+        );
+
+
+    const alertBox =
+        document.getElementById(
+            "memberHistoryAlert"
+        );
+
+
+    const newCount =
+        getNewMemberHistoryCount();
+
+
+    if(newCount > 0){
+
+        alertBox.style.display =
+            "block";
+
+        alertBox.innerHTML =
+            `🔔 <strong>มีประวัติที่ต้องตรวจสอบ ${newCount} รายการ</strong>
+             เนื่องจากพบวันติดธุระใหม่หลังจากเดือนที่จัดเวรล่าสุด`;
+
+    }else{
+
+        alertBox.style.display =
+            "none";
+
+    }
+
+
+    if(
+        state.memberHistory.length === 0
+    ){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📋
+                </div>
+
+                <div>
+                    ยังไม่มีประวัติข้อมูลสมาชิก
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        state.memberHistory
+        .map(history => {
+
+            const dates =
+                [...(history.unavailable || [])]
+                .sort();
+
+
+            const dateHtml =
+                dates.length
+                ? `
+                    <div
+                        style="
+                            display:flex;
+                            flex-wrap:wrap;
+                            gap:6px;
+                            margin-top:8px">
+
+                        ${
+                            dates
+                            .map(
+                                d =>
+                                `<span class="date-pill">
+                                    ${escapeHtml(
+                                        formatThaiDate(d)
+                                    )}
+                                </span>`
+                            )
+                            .join("")
+                        }
+
+                    </div>
+                  `
+                : `
+                    <div
+                        style="
+                            color:var(--muted);
+                            font-size:12px;
+                            margin-top:8px">
+                        ไม่มีวันติดธุระ
+                    </div>
+                  `;
+
+
+            const warning =
+                history.hasNewUnavailableAfterSchedule &&
+                !history.checkedByAdmin;
+
+
+            return `
+
+                <div
+                    class="member-card"
+                    style="
+                        margin-bottom:15px;
+                        border-color:
+                        ${
+                            warning
+                            ? "#f0c96d"
+                            : "var(--border)"
+                        }">
+
+                    ${
+                        warning
+                        ? `
+                            <div
+                                class="alert alert-warning">
+                                🔔 มีวันติดธุระใหม่
+                                หลังจากเดือนที่จัดเวรล่าสุด
+                            </div>
+                          `
+                        : ""
+                    }
+
+
+                    <div class="member-head">
+
+                        <div class="member-avatar">
+                            ${escapeHtml(
+                                history.memberName
+                                    .charAt(0)
+                            )}
+                        </div>
+
+                        <div>
+
+                            <div class="member-name">
+                                ${escapeHtml(
+                                    history.memberName
+                                )}
+                            </div>
+
+                            <div class="member-sub">
+                                ${escapeHtml(
+                                    history.action
+                                )}
+                                •
+                                ${new Date(
+                                    history.recordedAt
+                                ).toLocaleString(
+                                    "th-TH"
+                                )}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="member-info">
+
+                        <div class="member-info-row">
+
+                            <span>
+                                🎯 จำนวนวันที่ต้องการ
+                            </span>
+
+                            <strong>
+                                ${history.targetDays}
+                                วัน
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            style="
+                                font-size:12px;
+                                color:var(--muted);
+                                margin-top:10px">
+
+                            🚫 วันที่ติดธุระในประวัตินี้
+
+                        </div>
+
+
+                        ${dateHtml}
+
+
+                        <div
+                            style="
+                                display:flex;
+                                flex-wrap:wrap;
+                                gap:8px;
+                                margin-top:15px">
+
+                            ${
+                                warning
+                                ? `
+                                    <button
+                                        class="btn btn-secondary"
+                                        onclick="markMemberHistoryChecked('${history.id}')">
+                                        ✓ ตรวจสอบแล้ว
+                                    </button>
+                                  `
+                                : ""
+                            }
+
+
+                            <button
+                                class="btn btn-danger"
+                                onclick="deleteMemberHistory('${history.id}')">
+                                🗑️ ลบประวัติ
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            style="
+                                font-size:11px;
+                                color:var(--muted);
+                                margin-top:12px">
+
+                            * การลบรายการนี้
+                            จะลบเฉพาะประวัติ
+                            ไม่ลบข้อมูลสมาชิกปัจจุบัน
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        })
+        .join("");
+
+}
+
+
+/* =========================================================
+   MARK MEMBER HISTORY CHECKED
+========================================================= */
+
+function markMemberHistoryChecked(id){
+
+    if(!isAdmin) return;
+
+
+    const item =
+        state.memberHistory.find(
+            h => h.id === id
+        );
+
+
+    if(!item) return;
+
+
+    item.checkedByAdmin =
+        true;
+
+
+    saveState();
+
+    renderAdminMemberHistory();
+
+    renderHome();
+
+
+    showToast(
+        "ทำเครื่องหมายว่าตรวจสอบแล้ว",
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   DELETE MEMBER HISTORY
+========================================================= */
+
+function deleteMemberHistory(id){
+
+    if(!isAdmin){
+
+        showToast(
+            "เฉพาะ Admin เท่านั้น",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    const item =
+        state.memberHistory.find(
+            h => h.id === id
+        );
+
+
+    if(!item) return;
+
+
+    const ok =
+        confirm(
+            `ต้องการลบประวัติของ "${item.memberName}" หรือไม่?\n\n` +
+            `การลบนี้จะลบเฉพาะประวัติ\n` +
+            `ข้อมูลสมาชิกปัจจุบันจะไม่ถูกลบ`
+        );
+
+
+    if(!ok) return;
+
+
+    state.memberHistory =
+        state.memberHistory.filter(
+            h => h.id !== id
+        );
+
+
+    saveState();
+
+    renderAdminMemberHistory();
+
+    renderHome();
+
+
+    showToast(
+        "ลบประวัติแล้ว ข้อมูลสมาชิกปัจจุบันยังอยู่",
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   RESET ALL MEMBER DATA
+========================================================= */
+
+function resetAllMemberData(){
+
+    if(!isAdmin){
+
+        showToast(
+            "เฉพาะ Admin เท่านั้น",
+            "danger"
+        );
+
+        return;
+
+    }
+
+
+    const first =
+        confirm(
+            "⚠️ ต้องการลบข้อมูลสมาชิกทั้งหมดจริงหรือไม่?"
+        );
+
+
+    if(!first) return;
+
+
+    const second =
+        prompt(
+            "เพื่อยืนยัน ให้พิมพ์คำว่า RESET"
+        );
+
+
+    if(second !== "RESET"){
+
+        showToast(
+            "ยกเลิกการลบข้อมูล",
+            "info"
+        );
+
+        return;
+
+    }
+
+
+    state.members = [];
+
+    state.schedules = {};
+
+    state.carryOver = {};
+
+
+    /*
+      ประวัติสมาชิกไม่จำเป็นต้องถูกลบ
+      เพราะผู้ใช้ระบุว่าประวัติเป็นคนละส่วน
+
+      หากต้องการล้างประวัติด้วย
+      Admin สามารถลบจากหน้า
+      ประวัติข้อมูลสมาชิกทีละรายการ
+    */
+
+
+    saveState();
+
+    renderAll();
+
+
+    showToast(
+        "ลบข้อมูลสมาชิกและตารางเวรทั้งหมดแล้ว",
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(
+    message,
+    type="success"
+){
+
+    const container =
+        document.getElementById(
+            "toastContainer"
+        );
+
+
+    const toast =
+        document.createElement(
+            "div"
+        );
+
+
+    toast.className =
+        "toast";
+
+
+    if(type === "danger"){
+
+        toast.style.borderColor =
+            "#ffd0d0";
+
+    }
+
+    if(type === "success"){
+
+        toast.style.borderColor =
+            "#bdebd5";
+
+    }
+
+
+    toast.textContent =
+        message;
+
+
+    container.appendChild(
+        toast
+    );
+
+
+    setTimeout(
+        () => {
+
+            toast.remove();
+
+        },
+        3500
+    );
+
+}
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Escape"){
+
+            document
+                .querySelectorAll(
+                    ".modal-overlay.show"
+                )
+                .forEach(
+                    modal =>
+                        modal.classList.remove(
+                            "show"
+                        )
+                );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   PREVENT NORMAL USER FROM ACCESSING ADMIN HISTORY
+========================================================= */
+
+window.addEventListener(
+    "hashchange",
+    () => {
+
+        if(
+            location.hash ===
+            "#admin-member-history" &&
+            !isAdmin
+        ){
+
+            location.hash = "";
+
+            goHome();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ADMIN RESET BUTTON
+   เพิ่มใน console ได้ถ้าต้องการ:
+   resetAllMemberData()
+========================================================= */
+
+
+/* =========================================================
+   EXTRA: UPDATE HISTORY ALERT AFTER MEMBER SAVE
+========================================================= */
+
+function refreshAdminAlert(){
+
+    if(isAdmin){
+
+        checkAdminMemberHistoryAlert();
+
+    }
+
+}
+
+
+/* =========================================================
+   HANDLE MEMBER HISTORY FOR NEW UNAVAILABLE DATES
+========================================================= */
+
+/*
+   จุดสำคัญ:
+
+   ถ้าเดือนที่จัดเวรล่าสุดคือ ตุลาคม 2569
+   แล้วสมาชิกมาแก้ข้อมูลภายหลัง
+   และเพิ่มวันที่ติดธุระที่อยู่หลังเดือนตุลาคม
+
+   ระบบจะสร้างประวัติรายการใหม่
+   และ Admin จะได้รับแจ้งเตือนตอน Login
+
+   ประวัติไม่ไปแก้ตารางเวรเก่าอัตโนมัติ
+   เพื่อป้องกันการเปลี่ยนแปลงตารางย้อนหลังโดยไม่ตั้งใจ
+*/
+
+
+/* =========================================================
+   AUTO SHOW HOME WHEN CLICK BRAND
+========================================================= */
+
+document
+    .querySelector(".brand")
+    ?.addEventListener(
+        "click",
+        goHome
+    );
+
+
+/* =========================================================
+   INITIAL RENDER AGAIN
+========================================================= */
+
+renderAll();
+
+</script>
+
+</body>
+</html>
